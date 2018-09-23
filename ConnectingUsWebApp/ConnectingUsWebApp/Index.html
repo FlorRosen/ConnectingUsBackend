@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Connecting Us Web Api</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Users</h2>
+        <ul id="users" />
+    </div>
+    <div>
+        <h2>Search by ID</h2>
+        <input type="text" id="userId" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="user" />
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+    var uri = 'api/users';
+
+    $(document).ready(function () {
+      // Send an AJAX request
+      $.getJSON(uri)
+          .done(function (data) {
+            // On success, 'data' contains a list of users.
+            $.each(data, function (key, item) {
+              // Add a list item for the user.
+              $('<li>', { text: formatItem(item) }).appendTo($('#users'));
+            });
+          });
+    });
+
+    function formatItem(item) {
+      return item.FirstName + ' ' + item.LastName;
+    }
+
+    function find() {
+      var id = $('#userId').val();
+      $.getJSON(uri + '/' + id)
+          .done(function (data) {
+            $('#user').text(formatItem(data));
+          })
+          .fail(function (jqXHR, textStatus, err) {
+            $('#user').text('Error: ' + err);
+          });
+    }
+    </script>
+</body>
+</html>
