@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ConnectingUsWebApp.Models;
+using System.Data.SqlClient;
+using System.Text;
 
 namespace ConnectingUsWebApp.Controllers
 {
@@ -21,6 +23,37 @@ namespace ConnectingUsWebApp.Controllers
 
         public IEnumerable<User> GetAllUsers()
         {
+
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            builder.DataSource = "romasoft.database.windows.net";
+            builder.UserID = "Romasoft";
+            builder.Password = "ORT.12345";
+            builder.InitialCatalog = "connecting-us";
+
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+            {
+                Console.WriteLine("\nQuery data example:");
+                Console.WriteLine("=========================================\n");
+
+                connection.Open();
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT * ");
+                sb.Append("FROM dbo.countries");
+                String sql = sb.ToString();
+
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Console.WriteLine(reader.GetString(0));
+                        }
+                    }
+                }
+            }
+
+
             return users;
         }
 
