@@ -24,25 +24,17 @@ namespace ConnectingUsWebApp.Controllers
         public IEnumerable<User> GetAllUsers()
         {
 
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "romasoft.database.windows.net";
-            builder.UserID = "Romasoft";
-            builder.Password = "ORT.12345";
-            builder.InitialCatalog = "connecting-us";
+            var connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["AzureConnection"].ConnectionString;
 
-            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                Console.WriteLine("\nQuery data example:");
-                Console.WriteLine("=========================================\n");
 
                 connection.Open();
-                StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT * ");
-                sb.Append("FROM dbo.countries");
-                String sql = sb.ToString();
+                String query = "select first_name from dbo.users";
 
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -52,7 +44,6 @@ namespace ConnectingUsWebApp.Controllers
                     }
                 }
             }
-
 
             return users;
         }
