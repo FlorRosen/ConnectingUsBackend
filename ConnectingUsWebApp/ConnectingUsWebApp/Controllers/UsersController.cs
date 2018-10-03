@@ -12,14 +12,7 @@ namespace ConnectingUsWebApp.Controllers
 {
     public class UsersController : ApiController
     {
-        //This should be deleted when the connection to the DB is added
-        User[] users = new User[]
-        {
-            new User { Id = 1, FirstName = "Florencia", LastName = "Rosen"},
-            new User { Id = 2, FirstName = "Damian", LastName = "Bers"},
-            new User { Id = 3, FirstName = "Facundo", LastName = "Van"},
-            new User { Id = 4, FirstName = "Cesar", LastName = "Ler"}
-        };
+        List<User> users = new List<User>();
 
         public IEnumerable<User> GetAllUsers()
         {
@@ -30,7 +23,7 @@ namespace ConnectingUsWebApp.Controllers
             {
 
                 connection.Open();
-                String query = "select first_name from dbo.users";
+                String query = "select * from dbo.users";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -39,7 +32,13 @@ namespace ConnectingUsWebApp.Controllers
                     {
                         while (reader.Read())
                         {
-                            Console.WriteLine(reader.GetString(0));
+                            User user = new User();
+                            user.Id = Int32.Parse(reader["id_user"].ToString());
+                            user.FirstName = reader["first_name"].ToString();
+                            user.LastName = reader["last_name"].ToString();
+
+                            users.Add(user);
+                          
                         }
                     }
                 }
