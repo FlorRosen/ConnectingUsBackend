@@ -77,19 +77,19 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_addUser.Connection = connection;
 
-                command_addUser.CommandText = "INSERT INTO users (id_country, first_name, last_name, birth_date, create_date, nationality, gender, phone_number, phone_type, id_city_residence) " +
-                 "OUTPUT INSERTED.id_user VALUES (@id_country, @first_name, @last_name, @birth_date, @create_date, @nationality, @gender, @phone_number, @phone_type, @id_city_residence)";
+                command_addUser.CommandText = "INSERT INTO users (id_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence) " +
+                 "OUTPUT INSERTED.id_user VALUES (@id_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence)";
 
-                command_addUser.Parameters.AddWithValue("@id_country", 1);
+                command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
                 command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
                 command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
-                command_addUser.Parameters.AddWithValue("@birth_date", date);
+                //TODO: Change with real date. Be careful with types! 
+                command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                 command_addUser.Parameters.AddWithValue("@create_date", date);
-                command_addUser.Parameters.AddWithValue("@nationality", user.Nationality);
                 command_addUser.Parameters.AddWithValue("@gender", user.Gender);
                 command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
                 command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType);
-                command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence);
+                command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
 
                 SqlParameter param = new SqlParameter("@id_user", SqlDbType.Int, 4)
                 {

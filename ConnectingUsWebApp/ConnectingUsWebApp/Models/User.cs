@@ -12,16 +12,13 @@ namespace ConnectingUsWebApp.Models
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
-        //public Country Nationality { get; set; }
-        public string Nationality { get; set; }
-        //public Country CountryOfResidence { get; set; }
-        public string CountryOfResidence { get; set; }
+        public Country CountryOfResidence { get; set; }
         public Account Account { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreateDate { get; set; }
         public string PhoneType { get; set; }
-        //public City CityOfResidence { get; set; }
-        public int CityOfResidence { get; set; }
+        public City CityOfResidence { get; set; }
+      
 
     }
 }
