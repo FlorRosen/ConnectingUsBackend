@@ -34,21 +34,12 @@ namespace ConnectingUsWebApp.Controllers
         }
 
         //POST api/users
-       //[Route("~/api/Users/AddUser")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] User user)
         {
             var ok = usersRepo.AddUser(user);
 
-            if (ok)
-            {
-                return NotFound();
-            }
-
-            return Ok(ok );
+            return ok ? NotFound() : (IHttpActionResult)Ok();
         }
-
-
-
     }
 }

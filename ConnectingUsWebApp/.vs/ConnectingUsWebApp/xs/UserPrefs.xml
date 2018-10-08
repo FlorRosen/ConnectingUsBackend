@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/App_Start/WebApiConfig.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/UsersController.cs">
     <Files>
       <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="74" Column="66" />
       <File FileName="ConnectingUsWebApp/Models/User.cs" Line="8" Column="18" />
-      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="37" Column="10" />
+      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="48" Column="24" />
       <File FileName="ConnectingUsWebApp/App_Start/WebApiConfig.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

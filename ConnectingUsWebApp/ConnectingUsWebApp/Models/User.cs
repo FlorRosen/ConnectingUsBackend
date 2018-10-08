@@ -19,6 +19,5 @@ namespace ConnectingUsWebApp.Models
         public string PhoneType { get; set; }
         public City CityOfResidence { get; set; }
       
-
     }
 }
