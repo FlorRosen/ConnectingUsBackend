@@ -13,7 +13,7 @@ namespace ConnectingUsWebApp.Controllers
 {
     public class UsersController : ApiController
     {
-        static UsersRepository usersRepo = new UsersRepository();
+        private static readonly UsersRepository usersRepo = new UsersRepository();
 
         //Public Methods
         public IEnumerable<User> GetUsers()
@@ -26,11 +26,7 @@ namespace ConnectingUsWebApp.Controllers
         {
             var user = usersRepo.GetUser(id);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
+            return user == null ? NotFound() : (IHttpActionResult)Ok(user);
         }
 
         //POST api/users
@@ -39,7 +35,7 @@ namespace ConnectingUsWebApp.Controllers
         {
             var ok = usersRepo.AddUser(user);
 
-            return ok ? NotFound() : (IHttpActionResult)Ok();
+            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email already exist");
         }
     }
 }
