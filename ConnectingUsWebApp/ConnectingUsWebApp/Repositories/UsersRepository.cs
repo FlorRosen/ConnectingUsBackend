@@ -83,7 +83,6 @@ namespace ConnectingUsWebApp.Repositories
                 command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
                 command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
                 command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
-                //TODO: Change with real date. Be careful with types! 
                 command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                 command_addUser.Parameters.AddWithValue("@create_date", date);
                 command_addUser.Parameters.AddWithValue("@gender", user.Gender);
