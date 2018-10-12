@@ -1,18 +1,20 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/LoginController.cs">
     <Files>
-      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="90" Column="32" />
-      <File FileName="ConnectingUsWebApp/Models/User.cs" Line="21" Column="7" />
-      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="34" Column="26" />
-      <File FileName="ConnectingUsWebApp/App_Start/WebApiConfig.cs" Line="15" Column="13" />
+      <File FileName="ConnectingUsWebApp/Models/User.cs" Line="19" Column="40" />
+      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="40" Column="6" />
+      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="96" Column="39" />
+      <File FileName="ConnectingUsWebApp/Models/ViewModels/LoginViewModel.cs" Line="7" Column="45" />
+      <File FileName="ConnectingUsWebApp/Controllers/LoginController.cs" Line="21" Column="1" NotebookId="1" />
+      <File FileName="ConnectingUsWebApp/Repositories/LoginRepository.cs" Line="40" Column="1" NotebookId="1" />
+      <File FileName="ConnectingUsWebApp/Models/Account.cs" Line="4" Column="14" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="142" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="143" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="138" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/LoginController.cs" relfile="ConnectingUsWebApp/Controllers/LoginController.cs" line="15" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/LoginRepository.cs" relfile="ConnectingUsWebApp/Repositories/LoginRepository.cs" line="24" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

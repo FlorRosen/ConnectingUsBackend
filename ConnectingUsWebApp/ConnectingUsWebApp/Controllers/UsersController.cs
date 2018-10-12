@@ -13,7 +13,7 @@ namespace ConnectingUsWebApp.Controllers
 {
     public class UsersController : ApiController
     {
-        private static readonly UsersRepository usersRepo = new UsersRepository();
+        static readonly UsersRepository usersRepo = new UsersRepository();
 
         //Public Methods
         public IEnumerable<User> GetUsers()

@@ -12,16 +12,14 @@ namespace ConnectingUsWebApp.Repositories
 {
     public class UsersRepository
     {
+        SqlConnection connection;
+        SqlCommand command;
 
-        private SqlConnection connection;
-        private SqlCommand command;
-
-        private void CreateConnection()
+        void CreateConnection()
         {
-            string constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
+            var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
         }
-
 
         //Public Methods
         public List<User> GetUsers()
@@ -29,7 +27,7 @@ namespace ConnectingUsWebApp.Repositories
             List<User> users = new List<User>();
 
             CreateConnection();
-            String query = "select * from users";
+            var query = "select * from users";
             command = new SqlCommand(query, connection);
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -46,7 +44,7 @@ namespace ConnectingUsWebApp.Repositories
 
         public User GetUser(int id)
         {
-            User user = new User();
+            var user = new User();
 
             CreateConnection();
             command = new SqlCommand
@@ -77,9 +75,10 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from accounts where mail = @mail"
+                CommandText = "select * from accounts where mail = @mail or nickname = @nickname"
             };
             command.Parameters.AddWithValue("@mail", account.Mail);
+            command.Parameters.AddWithValue("@nickname", account.Nickname);
 
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -153,8 +152,7 @@ namespace ConnectingUsWebApp.Repositories
 
         }
 
-        //Private Methods
-        private User MapUserFromDB(SqlDataReader reader)
+        public static User MapUserFromDB(SqlDataReader reader)
         {
             User user = new User
             {
