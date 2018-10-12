@@ -1,21 +1,22 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/LoginController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Repositories/UsersRepository.cs">
     <Files>
-      <File FileName="ConnectingUsWebApp/Models/User.cs" Line="19" Column="40" />
-      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="40" Column="6" />
-      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="96" Column="39" />
-      <File FileName="ConnectingUsWebApp/Models/ViewModels/LoginViewModel.cs" Line="7" Column="45" />
-      <File FileName="ConnectingUsWebApp/Controllers/LoginController.cs" Line="21" Column="1" NotebookId="1" />
-      <File FileName="ConnectingUsWebApp/Repositories/LoginRepository.cs" Line="40" Column="1" NotebookId="1" />
-      <File FileName="ConnectingUsWebApp/Models/Account.cs" Line="4" Column="14" NotebookId="1" />
+      <File FileName="ConnectingUsWebApp/Models/User.cs" Line="1" Column="14" />
+      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="14" Column="26" />
+      <File FileName="ConnectingUsWebApp/Repositories/CitiesRepository.cs" Line="46" Column="10" />
+      <File FileName="ConnectingUsWebApp/Models/Account.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Models/Category.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Models/Chat.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Models/City.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Repositories/CountriesRepository.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Repositories/LoginRepository.cs" Line="1" Column="1" />
+      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="19" Column="10" />
+      <File FileName="ConnectingUsWebApp/Controllers/LoginController.cs" Line="18" Column="46" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/LoginController.cs" relfile="ConnectingUsWebApp/Controllers/LoginController.cs" line="15" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/LoginRepository.cs" relfile="ConnectingUsWebApp/Repositories/LoginRepository.cs" line="24" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.ConnectingUsWebApp PreferredExecutionTarget="MonoDevelop.Default" />

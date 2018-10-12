@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Http;
 using ConnectingUsWebApp.Models.ViewModels;
 using ConnectingUsWebApp.Repositories;
@@ -14,7 +15,7 @@ namespace ConnectingUsWebApp.Controllers
         {
             var user = loginRepo.LoginUser(login);
 
-            return user == null ? NotFound() : (IHttpActionResult)Ok(user);
+            return user.Id == 0 ? NotFound() : (IHttpActionResult)Ok(user);
         }
     }
 }

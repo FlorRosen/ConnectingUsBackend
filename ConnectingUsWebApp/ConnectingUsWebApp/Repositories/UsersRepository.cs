@@ -15,7 +15,7 @@ namespace ConnectingUsWebApp.Repositories
         SqlConnection connection;
         SqlCommand command;
 
-        void CreateConnection()
+        public UsersRepository()
         {
             var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
@@ -26,7 +26,6 @@ namespace ConnectingUsWebApp.Repositories
         {
             List<User> users = new List<User>();
 
-            CreateConnection();
             var query = "select * from users";
             command = new SqlCommand(query, connection);
             connection.Open();
@@ -46,7 +45,6 @@ namespace ConnectingUsWebApp.Repositories
         {
             var user = new User();
 
-            CreateConnection();
             command = new SqlCommand
             {
                 Connection = connection,
@@ -71,7 +69,6 @@ namespace ConnectingUsWebApp.Repositories
         {
             var existence = false;
 
-            CreateConnection();
             command = new SqlCommand
             {
                 Connection = connection,
@@ -95,7 +92,6 @@ namespace ConnectingUsWebApp.Repositories
 
         public bool AddUser(User user)
         {
-            CreateConnection();
             var result = true;
             var dateAndTime = DateTime.Now;
             var date = dateAndTime.Date.ToString("d");
@@ -154,6 +150,9 @@ namespace ConnectingUsWebApp.Repositories
 
         public static User MapUserFromDB(SqlDataReader reader)
         {
+            CountriesRepository countriesRepo = new CountriesRepository();
+            CitiesRepository citiesRepo = new CitiesRepository();
+
             User user = new User
             {
                 Id = Int32.Parse(reader["id_user"].ToString()),
@@ -162,7 +161,9 @@ namespace ConnectingUsWebApp.Repositories
                 Gender = reader["gender"].ToString(),
                 PhoneNumber = reader["phone_number"].ToString(),
                 CreateDate = Convert.ToDateTime(reader["create_date"].ToString()),
-                DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString())
+                DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString()),
+                CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),
+                CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString()))
             };
 
             return user;

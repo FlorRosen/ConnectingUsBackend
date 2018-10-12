@@ -103,6 +103,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Repositories\LoginRepository.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="Repositories\CitiesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

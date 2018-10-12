@@ -11,7 +11,7 @@ namespace ConnectingUsWebApp.Repositories
         SqlConnection connection;
         SqlCommand command;
 
-        void CreateConnection()
+        public LoginRepository()
         {
             var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
@@ -21,7 +21,6 @@ namespace ConnectingUsWebApp.Repositories
         public User LoginUser(LoginViewModel login){
             var user = new User();
 
-            CreateConnection();
             command = new SqlCommand
             {
                 Connection = connection,
@@ -38,6 +37,8 @@ namespace ConnectingUsWebApp.Repositories
                     user = UsersRepository.MapUserFromDB(reader);
                 }
             }
+
+            connection.Close();
             return user;
         }
         
