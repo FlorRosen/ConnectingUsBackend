@@ -17,5 +17,6 @@ namespace ConnectingUsWebApp.Controllers
 
             return user.Id == 0 ? NotFound() : (IHttpActionResult)Ok(user);
         }
+
     }
 }

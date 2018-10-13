@@ -42,27 +42,27 @@ namespace ConnectingUsWebApp.Repositories
             return city;
         }
 
-        public List<City> GetCountries()
+        public List<City> GetCities()
         {
-            List<City> countries = new List<City>();
+            List<City> cities = new List<City>();
 
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from countries"
+                CommandText = "select * from cities"
             };
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    countries.Add(MapCityFromDB(reader));
+                    cities.Add(MapCityFromDB(reader));
 
                 }
             }
             connection.Close();
 
-            return countries;
+            return cities;
         }
 
         public City MapCityFromDB(SqlDataReader reader)
