@@ -12,24 +12,21 @@ namespace ConnectingUsWebApp.Repositories
 {
     public class UsersRepository
     {
+        SqlConnection connection;
+        SqlCommand command;
 
-        private SqlConnection connection;
-        private SqlCommand command;
-
-        private void CreateConnection()
+        public UsersRepository()
         {
-            string constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
+            var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
         }
-
 
         //Public Methods
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
 
-            CreateConnection();
-            String query = "select * from users";
+            var query = "select * from users";
             command = new SqlCommand(query, connection);
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -46,9 +43,8 @@ namespace ConnectingUsWebApp.Repositories
 
         public User GetUser(int id)
         {
-            User user = new User();
+            var user = new User();
 
-            CreateConnection();
             command = new SqlCommand
             {
                 Connection = connection,
@@ -73,13 +69,13 @@ namespace ConnectingUsWebApp.Repositories
         {
             var existence = false;
 
-            CreateConnection();
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from accounts where mail = @mail"
+                CommandText = "select * from accounts where mail = @mail or nickname = @nickname"
             };
             command.Parameters.AddWithValue("@mail", account.Mail);
+            command.Parameters.AddWithValue("@nickname", account.Nickname);
 
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -96,7 +92,6 @@ namespace ConnectingUsWebApp.Repositories
 
         public bool AddUser(User user)
         {
-            CreateConnection();
             var result = true;
             var dateAndTime = DateTime.Now;
             var date = dateAndTime.Date.ToString("d");
@@ -153,9 +148,11 @@ namespace ConnectingUsWebApp.Repositories
 
         }
 
-        //Private Methods
-        private User MapUserFromDB(SqlDataReader reader)
+        public static User MapUserFromDB(SqlDataReader reader)
         {
+            CountriesRepository countriesRepo = new CountriesRepository();
+            CitiesRepository citiesRepo = new CitiesRepository();
+
             User user = new User
             {
                 Id = Int32.Parse(reader["id_user"].ToString()),
@@ -164,7 +161,9 @@ namespace ConnectingUsWebApp.Repositories
                 Gender = reader["gender"].ToString(),
                 PhoneNumber = reader["phone_number"].ToString(),
                 CreateDate = Convert.ToDateTime(reader["create_date"].ToString()),
-                DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString())
+                DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString()),
+                CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),
+                CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString()))
             };
 
             return user;
