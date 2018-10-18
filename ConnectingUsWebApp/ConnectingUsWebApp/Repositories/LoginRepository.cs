@@ -41,6 +41,43 @@ namespace ConnectingUsWebApp.Repositories
             connection.Close();
             return user;
         }
+
+        public Account GetAccount(int userId){
+            var account = new Account();
+
+            command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = "SELECT * FROM accounts WHERE id_user = @id_user"
+            };
+            command.Parameters.AddWithValue("@id_user", userId);
+
+            connection.Open();
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    account = MapAccountFromDB(reader);
+                }
+            }
+
+            connection.Close();
+            return account;
+        }
+
+        public Account MapAccountFromDB(SqlDataReader reader){
+
+            Account account = new Account
+            {
+                Id = Int32.Parse(reader["id_user"].ToString()),
+                Mail = reader["mail"].ToString(),
+                Nickname = reader["nickname"].ToString(),
+                Password = reader["password"].ToString()
+            };
+
+            return account;
+        }
         
     }
 }

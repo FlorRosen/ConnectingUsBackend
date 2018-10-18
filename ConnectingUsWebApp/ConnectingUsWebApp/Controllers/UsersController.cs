@@ -32,5 +32,14 @@ namespace ConnectingUsWebApp.Controllers
 
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email already exist");
         }
+
+        //POST api/users
+        [HttpPut]
+        public IHttpActionResult Put([FromBody] User user)
+        {
+            var ok = usersRepo.EditUser(user);
+
+            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Couln't modify the user data");
+        }
     }
 }
