@@ -148,10 +148,67 @@ namespace ConnectingUsWebApp.Repositories
 
         }
 
+        public bool EditUser(User user)
+        {
+            var result = false;
+
+            if (ValidateUserExistance(user.Account))
+            {
+                result = false;
+            }
+            else
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    connection.Open();
+
+                    command.Connection = connection;
+
+                    command.CommandText = "UPDATE users SET id_country = @id_country, first_name = @first_name, last_name = @last_name, birth_date = @birth_date, gender = @gender, phone_number = @phone_number, phone_type = @phone_type, id_city_residence = @id_city_residence " +
+                     "WHERE id_user = @id_user";
+
+                    command.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
+                    command.Parameters.AddWithValue("@first_name", user.FirstName);
+                    command.Parameters.AddWithValue("@last_name", user.LastName);
+                    command.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
+                    command.Parameters.AddWithValue("@gender", user.Gender);
+                    command.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
+                    command.Parameters.AddWithValue("@phone_type", user.PhoneType);
+                    command.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
+                    command.Parameters.AddWithValue("@id_user", user.Id);
+
+                    command.ExecuteNonQuery();
+                    //connection.Close();
+                    //result = true;
+
+                    using (SqlCommand command_Account = new SqlCommand())
+                    {
+                        command_Account.Connection = connection;
+
+                        command_Account.CommandText = "UPDATE accounts SET mail = @mail, nickname = @nickname, password = @password WHERE @id_user = @id_user";
+
+                        command_Account.Parameters.AddWithValue("@id_user", user.Id);
+                        command_Account.Parameters.AddWithValue("@mail", user.Account.Mail);
+                        command_Account.Parameters.AddWithValue("@nickname", user.Account.Nickname);
+                        command_Account.Parameters.AddWithValue("@password", user.Account.Password);
+
+                        command_Account.ExecuteNonQuery();
+
+                        connection.Close();
+                        result = true;
+                    }
+                }
+               
+            }
+
+            return result;
+        }
+
         public static User MapUserFromDB(SqlDataReader reader)
         {
             CountriesRepository countriesRepo = new CountriesRepository();
             CitiesRepository citiesRepo = new CitiesRepository();
+            LoginRepository loginRepo = new LoginRepository();
 
             User user = new User
             {
@@ -163,7 +220,8 @@ namespace ConnectingUsWebApp.Repositories
                 CreateDate = Convert.ToDateTime(reader["create_date"].ToString()),
                 DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString()),
                 CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),
-                CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString()))
+                CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString())),
+                Account = loginRepo.GetAccount(Int32.Parse(reader["id_user"].ToString()))
             };
 
             return user;
