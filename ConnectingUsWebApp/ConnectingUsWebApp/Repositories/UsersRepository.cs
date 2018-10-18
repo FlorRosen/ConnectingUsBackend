@@ -178,8 +178,6 @@ namespace ConnectingUsWebApp.Repositories
                     command.Parameters.AddWithValue("@id_user", user.Id);
 
                     command.ExecuteNonQuery();
-                    //connection.Close();
-                    //result = true;
 
                     using (SqlCommand command_Account = new SqlCommand())
                     {
