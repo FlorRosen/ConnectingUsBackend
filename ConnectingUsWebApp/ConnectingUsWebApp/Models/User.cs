@@ -10,6 +10,7 @@ namespace ConnectingUsWebApp.Models
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
         public Country CountryOfResidence { get; set; }
+        public Country CountryOfBirth { get; set; }
         public Account Account { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreateDate { get; set; }

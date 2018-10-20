@@ -107,10 +107,11 @@ namespace ConnectingUsWebApp.Repositories
 
                     command_addUser.Connection = connection;
 
-                    command_addUser.CommandText = "INSERT INTO users (id_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence) " +
-                     "OUTPUT INSERTED.id_user VALUES (@id_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence)";
+                    command_addUser.CommandText = "INSERT INTO users (id_country, id_birth_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence) " +
+                     "OUTPUT INSERTED.id_user VALUES (@id_country, @id_birth_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence)";
 
                     command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
+                    command_addUser.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
                     command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
                     command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
                     command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
@@ -164,10 +165,11 @@ namespace ConnectingUsWebApp.Repositories
 
                     command.Connection = connection;
 
-                    command.CommandText = "UPDATE users SET id_country = @id_country, first_name = @first_name, last_name = @last_name, birth_date = @birth_date, gender = @gender, phone_number = @phone_number, phone_type = @phone_type, id_city_residence = @id_city_residence " +
+                    command.CommandText = "UPDATE users SET id_country = @id_country, id_birth_country = @id_birth_country, first_name = @first_name, last_name = @last_name, birth_date = @birth_date, gender = @gender, phone_number = @phone_number, phone_type = @phone_type, id_city_residence = @id_city_residence " +
                      "WHERE id_user = @id_user";
 
                     command.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
+                    command.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
                     command.Parameters.AddWithValue("@first_name", user.FirstName);
                     command.Parameters.AddWithValue("@last_name", user.LastName);
                     command.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
@@ -218,6 +220,7 @@ namespace ConnectingUsWebApp.Repositories
                 CreateDate = Convert.ToDateTime(reader["create_date"].ToString()),
                 DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString()),
                 CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),
+                CountryOfBirth = countriesRepo.GetCountry(Int32.Parse(reader["id_birth_country"].ToString())),
                 CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString())),
                 Account = loginRepo.GetAccount(Int32.Parse(reader["id_user"].ToString()))
             };
