@@ -24,9 +24,11 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "SELECT * FROM users us INNER JOIN accounts ac ON us.id_user = ac.id_user WHERE ac.mail = @mail"
+                CommandText = "SELECT * FROM users us INNER JOIN accounts ac ON us.id_user = ac.id_user " +
+                "WHERE UPPER(ac.mail) = @mail and ac.password = @password"
             };
-            command.Parameters.AddWithValue("@mail", login.Mail);
+            command.Parameters.AddWithValue("@mail", login.Mail.ToUpper());
+            command.Parameters.AddWithValue("@password", login.Password);
 
             connection.Open();
 
@@ -71,9 +73,7 @@ namespace ConnectingUsWebApp.Repositories
             Account account = new Account
             {
                 Id = Int32.Parse(reader["id_user"].ToString()),
-                Mail = reader["mail"].ToString(),
-                Nickname = reader["nickname"].ToString(),
-                Password = reader["password"].ToString()
+                Nickname = reader["nickname"].ToString()
             };
 
             return account;

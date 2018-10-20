@@ -9,7 +9,7 @@ using ConnectingUsWebApp.Models;
 using System.Web.Http;
 namespace ConnectingUsWebApp.Repositories
 {
-    public class ServicesRepository
+    public class PointsRepository
     {
         private SqlConnection connection;
         private SqlCommand command;
@@ -25,7 +25,7 @@ namespace ConnectingUsWebApp.Repositories
         public List<Service> GetServices(int? idService, int? idUser, int? idCategory)
         {
             List<Service> services = new List<Service>();
-            
+
             CreateConnection();
             String query = "select * from services_by_users where " +
            " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user = @id_user))" +
@@ -42,7 +42,7 @@ namespace ConnectingUsWebApp.Repositories
             {
                 while (reader.Read())
                 {
-                    Service service = MapServiceFromDB(reader);
+                    Service service = MapPointFromDB(reader);
                     services.Add(service);
                 }
             }
@@ -67,7 +67,7 @@ namespace ConnectingUsWebApp.Repositories
             " AND ((@id_country IS NULL) OR (@id_country IS NOT NULL AND us.id_country = @id_country))" +
             " AND ((@id_city IS NULL) OR (@id_city IS NOT NULL AND us.id_city_residence = @id_city))" +
             " AND  ((@text IS NULL) OR (upper(sbu.description) LIKE '%' + @text + '%')) " +
-            " @id_categories " ;
+            " @id_categories ";
             //" AND ((@id_category IS NULL) OR (@id_category IS NOT NULL AND id_category = @id_category)) ";
 
 
@@ -82,7 +82,7 @@ namespace ConnectingUsWebApp.Repositories
             {
                 while (reader.Read())
                 {
-                    Service service = MapServiceFromDB(reader);
+                    Service service = MapPointFromDB(reader);
                     services.Add(service);
                 }
             }
@@ -95,29 +95,31 @@ namespace ConnectingUsWebApp.Repositories
             CreateConnection();
             var result = false;
 
-                using (SqlCommand command_addService = new SqlCommand())
+            using (SqlCommand command_addService = new SqlCommand())
+            {
+                connection.Open();
+
+                command_addService.Connection = connection;
+
+                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user, description, active) " +
+                 "VALUES (@id_category, @id_user, @description, @active)";
+
+                command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
+                command_addService.Parameters.AddWithValue("@id_user", service.UserId);
+                command_addService.Parameters.AddWithValue("@description", service.Description);
+
+                //The active column is a BIT in the database
+                if (service.Active)
                 {
-                    connection.Open();
-
-                    command_addService.Connection = connection;
-
-                    command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user, description, active) " +
-                     "VALUES (@id_category, @id_user, @description, @active)";
-
-                    command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
-                    command_addService.Parameters.AddWithValue("@id_user", service.UserId);
-                    command_addService.Parameters.AddWithValue("@description", service.Description);
-                
-                    //The active column is a BIT in the database
-                    if (service.Active){
-                        command_addService.Parameters.AddWithValue("@active", 1);
-                    }
-                    else {
-                        command_addService.Parameters.AddWithValue("@active", 0);
-                    }
-                    command_addService.ExecuteNonQuery();            
-                    connection.Close();
-                    result = true;
+                    command_addService.Parameters.AddWithValue("@active", 1);
+                }
+                else
+                {
+                    command_addService.Parameters.AddWithValue("@active", 0);
+                }
+                command_addService.ExecuteNonQuery();
+                connection.Close();
+                result = true;
 
 
             }
@@ -160,11 +162,11 @@ namespace ConnectingUsWebApp.Repositories
         }
 
         //Private Methods
-        private Service MapServiceFromDB(SqlDataReader reader)
+        private Service MapPointFromDB(SqlDataReader reader)
         {
-           
+
             UsersRepository usersRepository = new UsersRepository();
-            CategoriesRepository categoriesRepository = new CategoriesRepository();
+            ServicesRepository servicesRepository = new ServicesRepository();
 
             Service service = new Service
             {
@@ -172,7 +174,7 @@ namespace ConnectingUsWebApp.Repositories
                 Description = reader["description"].ToString(),
                 Active = Boolean.Parse(reader["active"].ToString()),
                 UserId = Int32.Parse(reader["id_user"].ToString()),
-                Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString()))
+                //Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString()))
 
 
             };

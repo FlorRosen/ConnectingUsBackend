@@ -25,6 +25,15 @@ namespace ConnectingUsWebApp.Controllers
             return services;
         }
 
+        //returns all services with the filters selected 
+        [Route("api/services/Search")]
+        [HttpGet]
+        public IEnumerable<Service> Search(List <string> idCategories,string textForSearch="", int? idCountry = null, int? idCity = null, int? idUser = null)
+        {
+            List<Service> services = servicesRepo.Search(idCategories, textForSearch, idCountry, idCity, idUser);
+            return services;
+        }
+
         //POST api/services
         //add service into DB
         [HttpPost]

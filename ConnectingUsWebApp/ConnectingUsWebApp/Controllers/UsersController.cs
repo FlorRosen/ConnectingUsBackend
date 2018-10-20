@@ -11,12 +11,12 @@ namespace ConnectingUsWebApp.Controllers
         static readonly UsersRepository usersRepo = new UsersRepository();
 
         //Public Methods
-        public IEnumerable<User> GetUsers()
+      /*  public IEnumerable<User> GetUsers()
         {
             List<User> users = usersRepo.GetUsers();
             return users;
         }
-
+        */
         public IHttpActionResult GetUser(int id)
         {
             var user = usersRepo.GetUser(id);

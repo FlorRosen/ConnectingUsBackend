@@ -22,26 +22,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
         //Public Methods
-        public List<User> GetUsers()
-        {
-            List<User> users = new List<User>();
-
-            var query = "select * from users";
-            command = new SqlCommand(query, connection);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    User user = MapUserFromDB(reader);
-                    users.Add(user);
-                }
-            }
-            connection.Close();
-            return users;
-        }
-
-        public User GetUser(int id)
+       public User GetUser(int id)
         {
             var user = new User();
 
@@ -64,7 +45,7 @@ namespace ConnectingUsWebApp.Repositories
             return user;
         }
 
-
+        //Validates that the nickname or the mail are in the DB
         public bool ValidateUserExistance(Account account)
         {
             var existence = false;
@@ -72,10 +53,10 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from accounts where mail = @mail or nickname = @nickname"
+                CommandText = "select * from accounts where UPPER(mail) = @mail or UPPER(nickname) = @nickname"
             };
-            command.Parameters.AddWithValue("@mail", account.Mail);
-            command.Parameters.AddWithValue("@nickname", account.Nickname);
+            command.Parameters.AddWithValue("@mail", account.Mail.ToUpper());
+            command.Parameters.AddWithValue("@nickname", account.Nickname.ToUpper());
 
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -94,8 +75,8 @@ namespace ConnectingUsWebApp.Repositories
         {
             var result = true;
             var dateAndTime = DateTime.Now;
-            var date = dateAndTime.Date.ToString("d");
-
+            // var date = dateAndTime.Date.ToString("d");
+            var date = dateAndTime;
             if(ValidateUserExistance(user.Account)){
                 result = false;
             }
@@ -107,13 +88,13 @@ namespace ConnectingUsWebApp.Repositories
 
                     command_addUser.Connection = connection;
 
-                    command_addUser.CommandText = "INSERT INTO users (id_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence) " +
-                     "OUTPUT INSERTED.id_user VALUES (@id_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence)";
+                    command_addUser.CommandText = "INSERT INTO users (id_country, first_name, last_name, birth_date, create_date,gender, phone_number, phone_type, id_city_residence) " +
+                     "OUTPUT INSERTED.id_user VALUES (@id_country, @first_name, @last_name, @birth_date, @create_date,@gender, @phone_number, @phone_type, @id_city_residence)";
 
                     command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
                     command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
                     command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
-                    command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
+                    command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth.ToShortDateString());
                     command_addUser.Parameters.AddWithValue("@create_date", date);
                     command_addUser.Parameters.AddWithValue("@gender", user.Gender);
                     command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
@@ -137,6 +118,17 @@ namespace ConnectingUsWebApp.Repositories
                         command_addAccountForUser.Parameters.AddWithValue("@mail", user.Account.Mail);
                         command_addAccountForUser.Parameters.AddWithValue("@nickname", user.Account.Nickname);
                         command_addAccountForUser.Parameters.AddWithValue("@password", user.Account.Password);
+
+                        command_addAccountForUser.ExecuteNonQuery();
+                    }
+
+                    using (SqlCommand command_addAccountForUser = new SqlCommand())
+                    {
+                        command_addAccountForUser.Connection = connection;
+
+                        command_addAccountForUser.CommandText = "INSERT INTO points_by_user (id_user) VALUES (@id_user)";
+
+                        command_addAccountForUser.Parameters.AddWithValue("@id_user", userId);
 
                         command_addAccountForUser.ExecuteNonQuery();
                     }
@@ -183,7 +175,8 @@ namespace ConnectingUsWebApp.Repositories
                     {
                         command_Account.Connection = connection;
 
-                        command_Account.CommandText = "UPDATE accounts SET mail = @mail, nickname = @nickname, password = @password WHERE @id_user = @id_user";
+                        command_Account.CommandText = "UPDATE accounts SET mail = @mail, nickname = @nickname, password = @password " +
+                            "WHERE @id_user = @id_user";
 
                         command_Account.Parameters.AddWithValue("@id_user", user.Id);
                         command_Account.Parameters.AddWithValue("@mail", user.Account.Mail);

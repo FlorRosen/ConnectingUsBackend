@@ -15,7 +15,8 @@ namespace ConnectingUsWebApp.Controllers
         {
             var user = loginRepo.LoginUser(login);
 
-            return user.Id == 0 ? NotFound() : (IHttpActionResult)Ok(user);
+            return user.Id == 0 ? Content(HttpStatusCode.NotFound, "User or password incorrect.") : (IHttpActionResult)Ok(user);  
+            
         }
 
     }
