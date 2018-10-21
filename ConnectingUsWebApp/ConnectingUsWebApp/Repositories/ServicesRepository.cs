@@ -52,7 +52,7 @@ namespace ConnectingUsWebApp.Repositories
 
         //Public Methods
         //This method can bring all services, by user id or serivce id or category that are active
-        public List<Service> Search(List<string> idCategories, string textForSearch, int? idCountry, int? idCity, int? idUser)
+        public List<Service> Search(List<int> idCategories, string textForSearch, int? idCountry, int? idCity, int? idUser)
         {
             List<Service> services = new List<Service>();
             //string categories = string.Format(" AND sbu.id_category  in ({0})", string.Join(",", idCategories));
@@ -67,8 +67,18 @@ namespace ConnectingUsWebApp.Repositories
             " AND ((@id_country IS NULL) OR (@id_country IS NOT NULL AND us.id_country = @id_country))" +
             " AND ((@id_city IS NULL) OR (@id_city IS NOT NULL AND us.id_city_residence = @id_city))" +
             " AND  ((@text IS NULL) OR (upper(sbu.description) LIKE '%' + @text + '%')) " +
-            " @id_categories " ;
+            " AND sbu.id_category in @id_categories ";
             //" AND ((@id_category IS NULL) OR (@id_category IS NOT NULL AND id_category = @id_category)) ";
+
+            var categories = "'(";
+            for (int i = 0; i < idCategories.Count; i++)
+            {
+                categories = categories + "'" + idCategories[i] + "'";
+                if(i < idCategories.Count - 1){
+                    categories = categories + ",";
+                }
+            }
+            categories = categories + ")'";
 
 
             command = new SqlCommand(query, connection);
@@ -76,7 +86,7 @@ namespace ConnectingUsWebApp.Repositories
             command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
             command.Parameters.AddWithValue("@id_country", idCountry ?? Convert.DBNull);
             command.Parameters.AddWithValue("@id_city", idCity ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@id_categories", string.Format(" AND sbu.id_category  in ({0})", string.Join(",", idCategories)));
+            command.Parameters.AddWithValue("@id_categories", string.Format("({0})", string.Join(",", idCategories)));
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {

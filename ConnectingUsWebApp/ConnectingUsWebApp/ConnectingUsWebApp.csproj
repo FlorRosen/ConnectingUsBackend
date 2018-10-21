@@ -113,6 +113,7 @@
     <Compile Include="Repositories\CitiesRepository.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Models\ViewModels\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
