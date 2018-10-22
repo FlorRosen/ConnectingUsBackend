@@ -1,24 +1,27 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/UsersController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/ServicesController.cs">
     <Files>
-      <File FileName="ConnectingUsWebApp/Models/User.cs" Line="9" Column="35" />
-      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="224" Column="27" />
-      <File FileName="ConnectingUsWebApp/Controllers/UsersController.cs" Line="25" Column="10" />
+      <File FileName="ConnectingUsWebApp/Repositories/CitiesRepository.cs" Line="66" Column="1" />
+      <File FileName="ConnectingUsWebApp/Controllers/CitiesController.cs" Line="14" Column="1" />
+      <File FileName="ConnectingUsWebApp/Controllers/ServicesController.cs" Line="14" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/ContriesController.cs" relfile="ConnectingUsWebApp/Controllers/ContriesController.cs" line="13" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/CitiesRepository.cs" relfile="ConnectingUsWebApp/Repositories/CitiesRepository.cs" line="65" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/LoginController.cs" relfile="ConnectingUsWebApp/Controllers/LoginController.cs" line="16" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/LoginRepository.cs" relfile="ConnectingUsWebApp/Repositories/LoginRepository.cs" line="42" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/LoginRepository.cs" relfile="ConnectingUsWebApp/Repositories/LoginRepository.cs" line="37" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="215" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="213" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/CitiesRepository.cs" relfile="ConnectingUsWebApp/Repositories/CitiesRepository.cs" line="66" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/EmailsController.cs" relfile="ConnectingUsWebApp/Controllers/EmailsController.cs" line="15" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Services/EmailService.cs" relfile="ConnectingUsWebApp/Services/EmailService.cs" line="13" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Services/EmailService.cs" relfile="ConnectingUsWebApp/Services/EmailService.cs" line="26" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="172" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="186" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="198" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="100" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="84" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="90" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/CitiesController.cs" relfile="ConnectingUsWebApp/Controllers/CitiesController.cs" line="13" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/CitiesController.cs" relfile="ConnectingUsWebApp/Controllers/CitiesController.cs" line="14" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
