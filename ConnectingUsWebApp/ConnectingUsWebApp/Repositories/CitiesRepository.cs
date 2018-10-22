@@ -42,15 +42,16 @@ namespace ConnectingUsWebApp.Repositories
             return city;
         }
 
-        public List<City> GetCities()
+        public List<City> GetCities(int idCountry)
         {
             List<City> cities = new List<City>();
 
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from cities"
+                CommandText = "select * from cities where id_country = @id_country"
             };
+            command.Parameters.AddWithValue("@id_country", idCountry);
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {

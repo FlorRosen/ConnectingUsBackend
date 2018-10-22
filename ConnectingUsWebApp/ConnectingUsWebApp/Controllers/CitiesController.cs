@@ -10,11 +10,12 @@ namespace ConnectingUsWebApp.Controllers
         static readonly CitiesRepository citiesRepo = new CitiesRepository();
 
         //Public Methods
-        public IEnumerable<City> GetCities()
+        public IEnumerable<City> GetCities(int countryId)
         {
-            List<City> cities = citiesRepo.GetCities();
+            List<City> cities = citiesRepo.GetCities(countryId);
             return cities;
         }
+
 
         public IHttpActionResult GetCity(int cityId, int countryId)
         {
