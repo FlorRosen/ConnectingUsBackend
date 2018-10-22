@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ConnectingUsWebApp.Models.ViewModels
 {
@@ -10,6 +9,5 @@ namespace ConnectingUsWebApp.Models.ViewModels
         public int IdCountry { get; set; }
         public int IdCity { get; set; }
         public int IdUser { get; set; }
-
     }
 }
