@@ -65,6 +65,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
 
+        //Validates that the nickname or the mail are in the DB
         public bool ValidateUserExistance(Account account)
         {
             var existence = false;
@@ -72,10 +73,10 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from accounts where mail = @mail or nickname = @nickname"
+                CommandText = "select * from accounts where UPPER(mail) = @mail or UPPER(nickname) = @nickname"
             };
-            command.Parameters.AddWithValue("@mail", account.Mail);
-            command.Parameters.AddWithValue("@nickname", account.Nickname);
+            command.Parameters.AddWithValue("@mail", account.Mail.ToUpper());
+            command.Parameters.AddWithValue("@nickname", account.Nickname.ToUpper());
 
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -94,9 +95,9 @@ namespace ConnectingUsWebApp.Repositories
         {
             var result = true;
             var dateAndTime = DateTime.Now;
-            var date = dateAndTime.Date.ToString("d");
-
-            if(ValidateUserExistance(user.Account)){
+            // var date = dateAndTime.Date.ToString("d");
+            var date = dateAndTime;
+            if (ValidateUserExistance(user.Account)){
                 result = false;
             }
             else
@@ -138,6 +139,17 @@ namespace ConnectingUsWebApp.Repositories
                         command_addAccountForUser.Parameters.AddWithValue("@mail", user.Account.Mail);
                         command_addAccountForUser.Parameters.AddWithValue("@nickname", user.Account.Nickname);
                         command_addAccountForUser.Parameters.AddWithValue("@password", user.Account.Password);
+
+                        command_addAccountForUser.ExecuteNonQuery();
+                    }
+
+                    using (SqlCommand command_addAccountForUser = new SqlCommand())
+                    {
+                        command_addAccountForUser.Connection = connection;
+
+                        command_addAccountForUser.CommandText = "INSERT INTO points_by_user (id_user) VALUES (@id_user)";
+
+                        command_addAccountForUser.Parameters.AddWithValue("@id_user", userId);
 
                         command_addAccountForUser.ExecuteNonQuery();
                     }
