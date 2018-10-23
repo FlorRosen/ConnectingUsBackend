@@ -94,9 +94,6 @@ namespace ConnectingUsWebApp.Repositories
         public bool AddUser(User user)
         {
             var result = true;
-            var dateAndTime = DateTime.Now;
-            // var date = dateAndTime.Date.ToString("d");
-            var date = dateAndTime;
             if (ValidateUserExistance(user.Account)){
                 result = false;
             }
@@ -104,12 +101,13 @@ namespace ConnectingUsWebApp.Repositories
             {
                 using (SqlCommand command_addUser = new SqlCommand())
                 {
+                    var date = DateTime.Now;
                     connection.Open();
 
                     command_addUser.Connection = connection;
 
-                    command_addUser.CommandText = "INSERT INTO users (id_country, id_birth_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence) " +
-                     "OUTPUT INSERTED.id_user VALUES (@id_country, @id_birth_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence)";
+                    command_addUser.CommandText = "INSERT INTO users (id_country, id_birth_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence, phone_area_code) " +
+                     "OUTPUT INSERTED.id_user VALUES (@id_country, @id_birth_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence, @phone_area_code)";
 
                     command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
                     command_addUser.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
@@ -120,6 +118,7 @@ namespace ConnectingUsWebApp.Repositories
                     command_addUser.Parameters.AddWithValue("@gender", user.Gender);
                     command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
                     command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType);
+                    command_addUser.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
                     command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
 
                     SqlParameter param = new SqlParameter("@id_user", SqlDbType.Int, 4)
@@ -177,7 +176,7 @@ namespace ConnectingUsWebApp.Repositories
 
                     command.Connection = connection;
 
-                    command.CommandText = "UPDATE users SET id_country = @id_country, id_birth_country = @id_birth_country, first_name = @first_name, last_name = @last_name, birth_date = @birth_date, gender = @gender, phone_number = @phone_number, phone_type = @phone_type, id_city_residence = @id_city_residence " +
+                    command.CommandText = "UPDATE users SET id_country = @id_country, id_birth_country = @id_birth_country, first_name = @first_name, last_name = @last_name, birth_date = @birth_date, gender = @gender, phone_number = @phone_number, phone_type = @phone_type, id_city_residence = @id_city_residence, phone_area_code = @phone_area_code " +
                      "WHERE id_user = @id_user";
 
                     command.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
@@ -188,6 +187,7 @@ namespace ConnectingUsWebApp.Repositories
                     command.Parameters.AddWithValue("@gender", user.Gender);
                     command.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
                     command.Parameters.AddWithValue("@phone_type", user.PhoneType);
+                    command.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
                     command.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
                     command.Parameters.AddWithValue("@id_user", user.Id);
 
@@ -229,6 +229,8 @@ namespace ConnectingUsWebApp.Repositories
                 LastName = reader["last_name"].ToString(),
                 Gender = reader["gender"].ToString(),
                 PhoneNumber = reader["phone_number"].ToString(),
+                PhoneType = reader["phone_type"].ToString(),
+                PhoneAreaCode = reader["phone_area_code"].ToString(),
                 CreateDate = Convert.ToDateTime(reader["create_date"].ToString()),
                 DateOfBirth = Convert.ToDateTime(reader["birth_date"].ToString()),
                 CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),

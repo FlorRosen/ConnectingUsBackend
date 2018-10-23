@@ -12,9 +12,10 @@ namespace ConnectingUsWebApp.Models
         public Country CountryOfResidence { get; set; }
         public Country CountryOfBirth { get; set; }
         public Account Account { get; set; }
-        public string PhoneNumber { get; set; }
         public DateTime CreateDate { get; set; }
         public string PhoneType { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PhoneAreaCode { get; set; }
         public City CityOfResidence { get; set; }
       
     }
