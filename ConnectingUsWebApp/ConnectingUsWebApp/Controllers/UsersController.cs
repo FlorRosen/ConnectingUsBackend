@@ -17,6 +17,7 @@ namespace ConnectingUsWebApp.Controllers
             return users;
         }
 
+        [HttpGet]
         public IHttpActionResult GetUser(int id)
         {
             var user = usersRepo.GetUser(id);
