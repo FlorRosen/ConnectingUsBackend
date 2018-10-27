@@ -75,8 +75,8 @@ namespace ConnectingUsWebApp.Repositories
                 Id = Int32.Parse(reader["id_city"].ToString()),
                 Name = reader["name"].ToString(),
                 Latitude = reader["latitude"].ToString(),
-                Longitude = reader["longitude"].ToString(),
-                Country = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString()))
+                Longitude = reader["longitude"].ToString()
+               
             };
 
             return city;
