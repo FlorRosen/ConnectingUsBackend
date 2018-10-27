@@ -10,17 +10,33 @@ namespace ConnectingUsWebApp.Controllers
         static readonly CountriesRepository countriesRepo = new CountriesRepository();
 
         //Public Methods
+        [HttpGet]
         public IEnumerable<Country> GetCountries()
         {
             List<Country> countries = countriesRepo.GetCountries();
             return countries;
         }
 
+
+        //Public Methods
+        //Returns the countries where servieces are offer
+        [Route("api/countries/Map")]
+        [HttpGet]
+        public IEnumerable<Country> GetCountriesOfServices()
+        {
+            List<Country> countries = countriesRepo.GetCountriesOfServices();
+            return countries;
+        }
+
+        [HttpGet]
         public IHttpActionResult GetCountry(int id)
         {
             var country = countriesRepo.GetCountry(id);
 
             return country == null ? NotFound() : (IHttpActionResult)Ok(country);
         }
+
+
+
     }
 }

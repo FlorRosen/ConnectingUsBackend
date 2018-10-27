@@ -60,6 +60,31 @@ namespace ConnectingUsWebApp.Repositories
             return countries;
         }
 
+        //Returns the countries where servieces are offer
+        public List<Country> GetCountriesOfServices()
+        {
+            List<Country> countries = new List<Country>();
+
+            command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = "select distinct co.* from countries co " +
+                "inner join services_by_users sbu on sbu.id_country = co.id_country "
+            };
+            connection.Open();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    countries.Add(MapCountryFromDB(reader));
+
+                }
+            }
+            connection.Close();
+
+            return countries;
+        }
+
         public Country MapCountryFromDB(SqlDataReader reader)
         {
             var country = new Country

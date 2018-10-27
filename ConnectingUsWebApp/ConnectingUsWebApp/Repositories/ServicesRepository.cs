@@ -37,8 +37,7 @@ namespace ConnectingUsWebApp.Repositories
             command.Parameters.AddWithValue("@id_service", idService ?? Convert.DBNull);
             command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
             command.Parameters.AddWithValue("@id_category", idCategory ?? Convert.DBNull);
-            //  command.Parameters.AddWithValue("@id_service", idService);
-            //command.Parameters.AddWithValue("@id_user", idUser);
+
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {
@@ -54,26 +53,12 @@ namespace ConnectingUsWebApp.Repositories
 
         //Public Methods
         //This method can bring all services, by user id or serivce id or category that are active
-        // public List<Service> Search(Category[] categories, string textForSearch, int? idCountry, int? idCity, int? idUser)
-        public List<Service> Search(SearchViewModel search)
+              public List<Service> Search(SearchViewModel search)
         {
             List<Service> services = new List<Service>();
-            //string categories = string.Format(" AND sbu.id_category  in ({0})", string.Join(",", idCategories));
-
-
+         
             CreateConnection();
             String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
-           /* String query = "select sbu.* from services_by_users sbu INNER JOIN users us on" +
-                " us.id_user = sbu.id_user" +
-            " WHERE " +
-            "   active = 1" + //A
-            " AND ((@id_user IS NULL) OR (@id_user IS NOT NULL AND sbu.id_user = @id_user))" +
-            " AND ((@id_country IS NULL) OR (@id_country IS NOT NULL AND us.id_country = @id_country))" +
-            " AND ((@id_city IS NULL) OR (@id_city IS NOT NULL AND us.id_city_residence = @id_city))" +
-            " AND  ((@text IS NULL) OR (upper(sbu.title) LIKE '%' + UPPER(@text) + '%')) " +
-            // " @id_categories ";
-            " AND ((@id_categories IS NULL) OR (@id_categories )) ";
-            */
 
             command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
@@ -94,7 +79,8 @@ namespace ConnectingUsWebApp.Repositories
             connection.Close();
             return services;
         }
-
+        
+        //Returns a string with all the categories id concatenated
         private String getCategoriesId(List<Category> categories){
             List<int> categoriesId = null;
             String categoriesQuery = "";
@@ -105,7 +91,6 @@ namespace ConnectingUsWebApp.Repositories
                     categoriesId.Add(element.Id);
                 }
                 categoriesQuery = "(" + string.Join(",", categoriesId) + ")";
-                //categoriesQuery =  string.Join(",", categoriesId);
             }
             return categoriesQuery;
         }
