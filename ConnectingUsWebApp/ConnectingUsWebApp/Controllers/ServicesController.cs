@@ -26,22 +26,12 @@ namespace ConnectingUsWebApp.Controllers
             return services;
         }
 
-        //returns all services with the filters selected 
-       /* [Route("api/services/Search")]
-        [HttpPost]
-        public IEnumerable<Service> Search(Category[] categories, string textForSearch = "", int? idCountry = null, int? idCity = null, int? idUser = null)
-        {
-            List<Service> services = servicesRepo.Search(categories, textForSearch, idCountry, idCity, idUser);
-            return services;
-        }*/
-        
+        //Post and returns all services with the filters selected         
         [Route("api/services/Search")]
         [HttpPost]
         public List<Service> Search([FromBody] SearchViewModel search)
         {
             return servicesRepo.Search(search);
-           // List<Service> services = servicesRepo.Search(idCategories, textForSearch, idCountry, idCity, idUser);
-          //  return ok;
         }
         
         //POST api/services
