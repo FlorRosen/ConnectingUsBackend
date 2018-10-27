@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Web.Http;
 using ConnectingUsWebApp.Repositories;
+using ConnectingUsWebApp.Models.ViewModels;
 
 namespace ConnectingUsWebApp.Controllers
 {
@@ -19,12 +20,30 @@ namespace ConnectingUsWebApp.Controllers
         //Public Methods
         //returns all services with optional parameters
         [HttpGet]
-        public IEnumerable<Service> GetServices(int? idService=null, int? idUser = null, int? idCategory = null)
+        public IEnumerable<Service> GetServices(int? idService = null, int? idUser = null, int? idCategory = null)
         {
-            List<Service> services = servicesRepo.GetServices(idService, idUser,idCategory);
+            List<Service> services = servicesRepo.GetServices(idService, idUser, idCategory);
             return services;
         }
 
+        //returns all services with the filters selected 
+       /* [Route("api/services/Search")]
+        [HttpPost]
+        public IEnumerable<Service> Search(Category[] categories, string textForSearch = "", int? idCountry = null, int? idCity = null, int? idUser = null)
+        {
+            List<Service> services = servicesRepo.Search(categories, textForSearch, idCountry, idCity, idUser);
+            return services;
+        }*/
+        
+        [Route("api/services/Search")]
+        [HttpPost]
+        public List<Service> Search([FromBody] SearchViewModel search)
+        {
+            return servicesRepo.Search(search);
+           // List<Service> services = servicesRepo.Search(idCategories, textForSearch, idCountry, idCity, idUser);
+          //  return ok;
+        }
+        
         //POST api/services
         //add service into DB
         [HttpPost]

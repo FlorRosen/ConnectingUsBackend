@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Data;
 using ConnectingUsWebApp.Models;
 using System.Web.Http;
+using ConnectingUsWebApp.Models.ViewModels;
+
 namespace ConnectingUsWebApp.Repositories
 {
     public class ServicesRepository
@@ -25,7 +27,7 @@ namespace ConnectingUsWebApp.Repositories
         public List<Service> GetServices(int? idService, int? idUser, int? idCategory)
         {
             List<Service> services = new List<Service>();
-            
+
             CreateConnection();
             String query = "select * from services_by_users where " +
            " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user = @id_user))" +
@@ -50,35 +52,98 @@ namespace ConnectingUsWebApp.Repositories
             return services;
         }
 
+        //Public Methods
+        //This method can bring all services, by user id or serivce id or category that are active
+        // public List<Service> Search(Category[] categories, string textForSearch, int? idCountry, int? idCity, int? idUser)
+        public List<Service> Search(SearchViewModel search)
+        {
+            List<Service> services = new List<Service>();
+            //string categories = string.Format(" AND sbu.id_category  in ({0})", string.Join(",", idCategories));
 
+
+            CreateConnection();
+            String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
+           /* String query = "select sbu.* from services_by_users sbu INNER JOIN users us on" +
+                " us.id_user = sbu.id_user" +
+            " WHERE " +
+            "   active = 1" + //A
+            " AND ((@id_user IS NULL) OR (@id_user IS NOT NULL AND sbu.id_user = @id_user))" +
+            " AND ((@id_country IS NULL) OR (@id_country IS NOT NULL AND us.id_country = @id_country))" +
+            " AND ((@id_city IS NULL) OR (@id_city IS NOT NULL AND us.id_city_residence = @id_city))" +
+            " AND  ((@text IS NULL) OR (upper(sbu.title) LIKE '%' + UPPER(@text) + '%')) " +
+            // " @id_categories ";
+            " AND ((@id_categories IS NULL) OR (@id_categories )) ";
+            */
+
+            command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
+            command.Parameters.AddWithValue("@text", search.Text ?? Convert.DBNull);
+            command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
+            command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
+            command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
+            command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
+            connection.Open();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Service service = MapServiceFromDB(reader);
+                    services.Add(service);
+                }
+            }
+            connection.Close();
+            return services;
+        }
+
+        private String getCategoriesId(List<Category> categories){
+            List<int> categoriesId = null;
+            String categoriesQuery = "";
+            if (categories != null) {
+                categoriesId = new List<int>();
+                foreach (Category element in categories)
+                {
+                    categoriesId.Add(element.Id);
+                }
+                categoriesQuery = "(" + string.Join(",", categoriesId) + ")";
+                //categoriesQuery =  string.Join(",", categoriesId);
+            }
+            return categoriesQuery;
+        }
+        
         public bool AddService(Service service)
         {
             CreateConnection();
             var result = false;
 
-                using (SqlCommand command_addService = new SqlCommand())
+            using (SqlCommand command_addService = new SqlCommand())
+            {
+                connection.Open();
+
+                command_addService.Connection = connection;
+
+                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description, active,id_country,id_city) " +
+                 "VALUES (@id_category, @id_user,@title, @description, @active, @id_country, @id_city)";
+
+                command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
+                command_addService.Parameters.AddWithValue("@id_user", service.UserId);
+                command_addService.Parameters.AddWithValue("@title", service.Title);
+                command_addService.Parameters.AddWithValue("@description", service.Description);
+                command_addService.Parameters.AddWithValue("@id_country", service.Country.Id);
+                command_addService.Parameters.AddWithValue("@id_city", service.City.Id);
+
+
+                //The active column is a BIT in the database
+                if (service.Active)
                 {
-                    connection.Open();
-
-                    command_addService.Connection = connection;
-
-                    command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user, description, active) " +
-                     "VALUES (@id_category, @id_user, @description, @active)";
-
-                    command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
-                    command_addService.Parameters.AddWithValue("@id_user", service.UserId);
-                    command_addService.Parameters.AddWithValue("@description", service.Description);
-                
-                    //The active column is a BIT in the database
-                    if (service.Active){
-                        command_addService.Parameters.AddWithValue("@active", 1);
-                    }
-                    else {
-                        command_addService.Parameters.AddWithValue("@active", 0);
-                    }
-                    command_addService.ExecuteNonQuery();            
-                    connection.Close();
-                    result = true;
+                    command_addService.Parameters.AddWithValue("@active", 1);
+                }
+                else
+                {
+                    command_addService.Parameters.AddWithValue("@active", 0);
+                }
+                command_addService.ExecuteNonQuery();
+                connection.Close();
+                result = true;
 
 
             }
@@ -96,11 +161,12 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_UpdateService.Connection = connection;
 
-                command_UpdateService.CommandText = "UPDATE services_by_users SET description = @description , active = @active " +
+                command_UpdateService.CommandText = "UPDATE services_by_users SET title = @title, description = @description , active = @active " +
                  "WHERE  id_service = @id_service";
 
                 command_UpdateService.Parameters.AddWithValue("@id_service", service.Id);
                 command_UpdateService.Parameters.AddWithValue("@description", service.Description);
+                command_UpdateService.Parameters.AddWithValue("@title", service.Title);
 
                 //The active column is a BIT in the database
                 if (service.Active)
@@ -120,20 +186,27 @@ namespace ConnectingUsWebApp.Repositories
             return result;
         }
 
+
         //Private Methods
         private Service MapServiceFromDB(SqlDataReader reader)
         {
-           
+
             UsersRepository usersRepository = new UsersRepository();
             CategoriesRepository categoriesRepository = new CategoriesRepository();
+            CountriesRepository countriesRepository = new CountriesRepository();
+            CitiesRepository citiesRepository = new CitiesRepository();
 
             Service service = new Service
             {
                 Id = Int32.Parse(reader["id_service"].ToString()),
+                Title = reader["title"].ToString(),
                 Description = reader["description"].ToString(),
                 Active = Boolean.Parse(reader["active"].ToString()),
                 UserId = Int32.Parse(reader["id_user"].ToString()),
-                Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString()))
+                Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString())),
+                Country = countriesRepository.GetCountry(Int32.Parse(reader["id_country"].ToString())),
+                City = citiesRepository.GetCity(Int32.Parse(reader["id_city"].ToString()), Int32.Parse(reader["id_country"].ToString()))
+
 
 
             };
