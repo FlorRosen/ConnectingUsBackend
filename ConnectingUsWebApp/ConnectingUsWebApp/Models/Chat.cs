@@ -9,9 +9,10 @@ namespace ConnectingUsWebApp.Models
     {
         public int Id { get; set; }
         public Service Service { get; set; }
-        public User UserRequester { get; set; }
-        public User UserOfertor { get; set; }
+        public int UserRequesterId { get; set; }
+        public int UserOfertorId { get; set; }
         public bool Active { get; set; }
+        public List<Message> Messages { get; set; }
 
     }
 }

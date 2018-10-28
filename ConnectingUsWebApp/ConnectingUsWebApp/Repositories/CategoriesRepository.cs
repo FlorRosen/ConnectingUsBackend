@@ -22,14 +22,14 @@ namespace ConnectingUsWebApp.Repositories
         }
 
         //Public Methods
-        public List<Category> GetCategories(int id_category) //This method can bring all categories,or one category
+        //Bring all categories
+        public List<Category> GetCategories() 
         {
             List<Category> categories = new List<Category>();
 
             CreateConnection();
-            String query = "select * from categories where (@id_category IS NULL) OR id_category = @id_category";
+            String query = "select * from service_category";
             command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_category", id_category);
      
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
@@ -44,6 +44,7 @@ namespace ConnectingUsWebApp.Repositories
             return categories;
         }
 
+        //Get one category
         public Category GetCategory(int id)
         {
             Category category = new Category();
@@ -70,13 +71,12 @@ namespace ConnectingUsWebApp.Repositories
         //Private Methods
         private Category MapCategoryFromDB(SqlDataReader reader)
         {
-
-            UsersRepository usersRepository = new UsersRepository();
-
+            
             Category category = new Category
             {
                 Id = Int32.Parse(reader["id_category"].ToString()),
-                Description = reader["description"].ToString() 
+                Description = reader["description"].ToString() ,
+                Category_Code = reader["category_code"].ToString()
             };
 
             return category;

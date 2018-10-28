@@ -31,7 +31,7 @@ namespace ConnectingUsWebApp.Controllers
         {
             var ok = usersRepo.AddUser(user);
 
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email already exist");
+            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email or nickname already exist");
         }
 
         //POST api/users
