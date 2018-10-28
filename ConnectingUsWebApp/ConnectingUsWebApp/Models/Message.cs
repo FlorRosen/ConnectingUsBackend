@@ -7,10 +7,12 @@ namespace ConnectingUsWebApp.Models
 {
     public class Message
     {
-        public int Id { get; set; }
         public DateTime Date { get; set; }
-        public User Sender { get; set; }
-        public User Receriver { get; set; }
+        public int UserSenderId { get; set; }
+        public int UserReceiverId { get; set; }
+        public String Text { get; set; }
+        public int IdChat { get; set; }
+
 
     }
 }
