@@ -16,18 +16,17 @@ namespace ConnectingUsWebApp.Repositories
         private SqlConnection connection;
         private SqlCommand command;
 
-        private void CreateConnection()
+        public ChatsRepository()
         {
-            string constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
+            var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
         }
-
 
         public List<Chat> GetChats(int idUser)
         {
             List<Chat> chats = new List<Chat>();
 
-            CreateConnection();
+           
             String query = "select * from chats " +
                 "where id_user_requester = @id_user or id_user_ofertor = @id_user";
             command = new SqlCommand(query, connection);
@@ -51,7 +50,7 @@ namespace ConnectingUsWebApp.Repositories
         //Create new chat
         public bool AddChat(Chat chat)
         {
-            CreateConnection();
+            
             var result = false;
 
             using (SqlCommand command_addChat = new SqlCommand())
@@ -85,7 +84,7 @@ namespace ConnectingUsWebApp.Repositories
         //DELETE chat and messages
         public bool DeleteChat(Chat chat)
         {
-            CreateConnection();
+            
             var result = false;
 
             using (SqlCommand command_deleteChat = new SqlCommand())
@@ -114,7 +113,7 @@ namespace ConnectingUsWebApp.Repositories
         //Close the chat
         public bool UpdateChat(Chat chat)
         {
-            CreateConnection();
+            
             var result = false;
             using (SqlCommand command_UpdateChat = new SqlCommand())
             {

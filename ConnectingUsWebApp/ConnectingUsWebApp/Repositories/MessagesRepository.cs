@@ -15,9 +15,9 @@ namespace ConnectingUsWebApp.Repositories
         private SqlConnection connection;
         private SqlCommand command;
 
-        private void CreateConnection()
+        public MessagesRepository()
         {
-            string constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
+            var constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
         }
 
@@ -28,7 +28,7 @@ namespace ConnectingUsWebApp.Repositories
         {
             List<Message> messages = new List<Message>();
 
-            CreateConnection();
+           
             String query = "select * " +
                            "from messages where id_chat = @id_chat order by message_date desc";
             command = new SqlCommand(query, connection);
@@ -50,7 +50,7 @@ namespace ConnectingUsWebApp.Repositories
         //Add message to the chat. Sends the notification by mail
         public bool AddMessage(Message message)
         {
-            CreateConnection();
+            
             var result = false;
 
             using (SqlCommand command_addMeesage = new SqlCommand())

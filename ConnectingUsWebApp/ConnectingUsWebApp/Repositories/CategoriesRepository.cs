@@ -75,8 +75,8 @@ namespace ConnectingUsWebApp.Repositories
             Category category = new Category
             {
                 Id = Int32.Parse(reader["id_category"].ToString()),
-                Description = reader["description"].ToString() ,
-                Category_Code = reader["category_code"].ToString()
+                Description = reader["description"].ToString(),
+                CategoryCode = reader["category_code"].ToString()
             };
 
             return category;

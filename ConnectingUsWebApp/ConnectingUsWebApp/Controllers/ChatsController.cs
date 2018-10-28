@@ -32,7 +32,7 @@ namespace ConnectingUsWebApp.Controllers
 
 
         //Create a new message
-        [Route("api/chats/chat")]
+        [Route("api/chats/messages")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] Message message)
         {
