@@ -24,9 +24,10 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "SELECT * FROM users us INNER JOIN accounts ac ON us.id_user = ac.id_user WHERE ac.mail = @mail"
+                CommandText = "SELECT * FROM users us INNER JOIN accounts ac ON us.id_user = ac.id_user WHERE UPPER(ac.mail) = @mail AND ac.password = @password"
             };
-            command.Parameters.AddWithValue("@mail", login.Mail);
+            command.Parameters.AddWithValue("@mail", login.Mail.ToUpper());
+            command.Parameters.AddWithValue("@password", login.Password);
 
             connection.Open();
 
