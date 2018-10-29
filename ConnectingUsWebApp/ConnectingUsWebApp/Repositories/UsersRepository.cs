@@ -113,7 +113,7 @@ namespace ConnectingUsWebApp.Repositories
                     command_addUser.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
                     command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
                     command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
-                    command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth.ToShortDateString());
+                    command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                     command_addUser.Parameters.AddWithValue("@create_date", date);
                     command_addUser.Parameters.AddWithValue("@gender", user.Gender);
                     command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
