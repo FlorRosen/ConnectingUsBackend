@@ -142,16 +142,6 @@ namespace ConnectingUsWebApp.Repositories
                         command_addAccountForUser.ExecuteNonQuery();
                     }
 
-                    using (SqlCommand command_addAccountForUser = new SqlCommand())
-                    {
-                        command_addAccountForUser.Connection = connection;
-
-                        command_addAccountForUser.CommandText = "INSERT INTO points_by_user (id_user) VALUES (@id_user)";
-
-                        command_addAccountForUser.Parameters.AddWithValue("@id_user", userId);
-
-                        command_addAccountForUser.ExecuteNonQuery();
-                    }
                 }
             }
 

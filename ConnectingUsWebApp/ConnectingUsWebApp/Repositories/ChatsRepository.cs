@@ -45,7 +45,29 @@ namespace ConnectingUsWebApp.Repositories
             return chats;
         }
 
-      
+        public Chat GetChat(int idChat)
+        {
+            Chat chat = new Chat();
+
+
+            String query = "select * from chats " +
+                "where id_chat = @id_chat";
+            command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@id_chat", idChat);
+
+            connection.Open();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    chat = MapChatFromDB(reader);
+                }
+            }
+
+            connection.Close();
+            return chat;
+        }
+
 
         //Create new chat
         public bool AddChat(Chat chat)
@@ -110,7 +132,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
 
-        //Close the chat
+        //Close the chat and insert the qualification
         public bool UpdateChat(Chat chat)
         {
             
@@ -121,7 +143,7 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_UpdateChat.Connection = connection;
 
-                command_UpdateChat.CommandText = "UPDATE chats SET active = @active " +
+                command_UpdateChat.CommandText = "UPDATE chats SET active = 0 " +
                  "WHERE  id_chat = @id_chat";
 
                 command_UpdateChat.Parameters.AddWithValue("@id_chat", chat.Id);
@@ -135,10 +157,12 @@ namespace ConnectingUsWebApp.Repositories
                 {
                     command_UpdateChat.Parameters.AddWithValue("@active", 0);
                 }
-
                 command_UpdateChat.ExecuteNonQuery();
                 connection.Close();
-                result = true;
+
+                QualificationsRepository qualificationsRepository = new QualificationsRepository();
+                              
+                result = qualificationsRepository.AddQualification(chat);
 
             }
             return result;

@@ -13,6 +13,7 @@ namespace ConnectingUsWebApp.Models
         public int UserOfertorId { get; set; }
         public bool Active { get; set; }
         public List<Message> Messages { get; set; }
+        public Qualification Qualification { get; set; }
 
     }
 }

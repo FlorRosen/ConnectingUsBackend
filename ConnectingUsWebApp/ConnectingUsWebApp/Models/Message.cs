@@ -14,5 +14,7 @@ namespace ConnectingUsWebApp.Models
         public int IdChat { get; set; }
 
 
+
+
     }
 }

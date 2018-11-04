@@ -55,7 +55,7 @@ namespace ConnectingUsWebApp.Repositories
 
             using (SqlCommand command_addMeesage = new SqlCommand())
             {
-                var date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+               
                 connection.Open();
 
                 command_addMeesage.Connection = connection;
@@ -67,7 +67,7 @@ namespace ConnectingUsWebApp.Repositories
                 command_addMeesage.Parameters.AddWithValue("@text", message.Text);
                 command_addMeesage.Parameters.AddWithValue("@id_user_sender", message.UserSenderId);
                 command_addMeesage.Parameters.AddWithValue("@id_user_receiver", message.UserReceiverId);
-                command_addMeesage.Parameters.AddWithValue("@message_date", date);
+                
 
                 command_addMeesage.ExecuteNonQuery();
                 connection.Close();
@@ -81,7 +81,8 @@ namespace ConnectingUsWebApp.Repositories
         private Message MapMessagesFromDB(SqlDataReader reader)
         {
 
-            MessagesRepository messagesRepository = new MessagesRepository();
+            ChatsRepository chatsRepository = new ChatsRepository();
+            UsersRepository usersRepository = new UsersRepository();
 
             Message message = new Message
             {
@@ -90,8 +91,10 @@ namespace ConnectingUsWebApp.Repositories
                 UserSenderId = Int32.Parse(reader["id_sender_user"].ToString()),
                 Date = Convert.ToDateTime(reader["message_date"].ToString()),
                 IdChat = Int32.Parse(reader["id_chat"].ToString())
+                
 
-            };
+
+    };
 
             return message;
         }
