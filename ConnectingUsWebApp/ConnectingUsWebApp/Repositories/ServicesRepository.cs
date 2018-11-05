@@ -106,8 +106,8 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_addService.Connection = connection;
 
-                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description, active,id_country,id_city) " +
-                 "VALUES (@id_category, @id_user,@title, @description, @active, @id_country, @id_city)";
+                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description,id_country,id_city) " +
+                 "VALUES (@id_category, @id_user,@title, @description, @id_country, @id_city)";
 
                 command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
                 command_addService.Parameters.AddWithValue("@id_user", service.UserId);
@@ -116,16 +116,6 @@ namespace ConnectingUsWebApp.Repositories
                 command_addService.Parameters.AddWithValue("@id_country", service.Country.Id);
                 command_addService.Parameters.AddWithValue("@id_city", service.City.Id);
 
-
-                //The active column is a BIT in the database
-                if (service.Active)
-                {
-                    command_addService.Parameters.AddWithValue("@active", 1);
-                }
-                else
-                {
-                    command_addService.Parameters.AddWithValue("@active", 0);
-                }
                 command_addService.ExecuteNonQuery();
                 connection.Close();
                 result = true;
