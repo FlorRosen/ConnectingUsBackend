@@ -22,8 +22,15 @@ namespace ConnectingUsWebApp.Services
             mail.Subject = subject;
             mail.Body = body;
 
-            var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            // var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            smtpServer.Port = 587;
+            smtpServer.Credentials = new System.Net.NetworkCredential("connecting.us2018@gmail.com", "Ort12345");
+            smtpServer.EnableSsl = true;
+            smtpServer.UseDefaultCredentials = true;
             smtpServer.Send(mail);
+
+
+
         }
     }
 }
