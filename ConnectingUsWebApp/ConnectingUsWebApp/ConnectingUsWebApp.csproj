@@ -119,6 +119,7 @@
     <Compile Include="Repositories\CitiesRepository.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Services\EmailService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -131,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
