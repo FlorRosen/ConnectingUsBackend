@@ -41,7 +41,7 @@ namespace ConnectingUsWebApp.Controllers
         {
             var ok = chatsRepo.AddMessage(message);
 
-            if (ok) {
+            /*if (ok) {
 
                 ChatsRepository chatsRepository = new ChatsRepository();
                 UsersRepository usersRepository = new UsersRepository();
@@ -61,7 +61,8 @@ namespace ConnectingUsWebApp.Controllers
                 {
                     throw new SmtpFailedRecipientException("Failed while sending the email");
                 }
-            }
+            }*/
+
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail add message to chat");
         }
 
@@ -70,7 +71,7 @@ namespace ConnectingUsWebApp.Controllers
         public IHttpActionResult Put([FromBody] Chat chat)
         {
             var ok = chatsRepo.UpdateChat(chat);
-            if (ok)
+            /*if (ok)
             {
                 UsersRepository usersRepository = new UsersRepository();
 
@@ -87,8 +88,8 @@ namespace ConnectingUsWebApp.Controllers
                 catch (SmtpFailedRecipientException ex)
                 {
                     throw new SmtpFailedRecipientException("Failed while sending the email");
-                }                
-            }
+                } 
+        } */
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to update chat");
         }
 
