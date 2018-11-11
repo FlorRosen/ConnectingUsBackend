@@ -15,6 +15,7 @@ namespace ConnectingUsWebApp.Models
         public bool Active { get; set; }
         public Country Country { get; set; }
         public City City { get; set; }
-
+      //  public String Image { get; set; }
+        public List<Image> Images { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace ConnectingUsWebApp.Repositories
         private SqlConnection connection;
         private SqlCommand command;
 
-        private void CreateConnection()
+        public ServicesRepository()
         {
             string constr = ConfigurationManager.ConnectionStrings["AzureConnection"].ToString();
             connection = new SqlConnection(constr);
@@ -28,7 +28,7 @@ namespace ConnectingUsWebApp.Repositories
         {
             List<Service> services = new List<Service>();
 
-            CreateConnection();
+           
             String query = "select * from services_by_users where " +
            " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user = @id_user))" +
            " AND ((@id_service IS NULL) OR (@id_service IS NOT NULL AND id_service = @id_service)) " +
@@ -56,27 +56,34 @@ namespace ConnectingUsWebApp.Repositories
               public List<Service> Search(SearchViewModel search)
         {
             List<Service> services = new List<Service>();
-         
-            CreateConnection();
-            String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
 
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@text", search.Text ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
-            command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
+
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@text", search.Text ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Service service = MapServiceFromDB(reader);
-                    services.Add(service);
+                    while (reader.Read())
+                    {
+                        Service service = MapServiceFromDB(reader);
+                        services.Add(service);
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+
+            }
             return services;
         }
         
@@ -97,7 +104,7 @@ namespace ConnectingUsWebApp.Repositories
         
         public bool AddService(Service service)
         {
-            CreateConnection();
+           
             var result = false;
 
             using (SqlCommand command_addService = new SqlCommand())
@@ -106,8 +113,8 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_addService.Connection = connection;
 
-                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description,id_country,id_city) " +
-                 "VALUES (@id_category, @id_user,@title, @description, @id_country, @id_city)";
+                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description,id_country,id_city,create_date) " +
+                 "OUTPUT INSERTED.id_service VALUES (@id_category, @id_user,@title, @description, @id_country, @id_city,getdate())";
 
                 command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
                 command_addService.Parameters.AddWithValue("@id_user", service.UserId);
@@ -116,8 +123,20 @@ namespace ConnectingUsWebApp.Repositories
                 command_addService.Parameters.AddWithValue("@id_country", service.Country.Id);
                 command_addService.Parameters.AddWithValue("@id_city", service.City.Id);
 
-                command_addService.ExecuteNonQuery();
+                SqlParameter param = new SqlParameter("@id_service", SqlDbType.Int, 4)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                command_addService.Parameters.Add(param);
+
+                int Id = (int)command_addService.ExecuteScalar();
+
+                //command_addService.ExecuteNonQuery();
                 connection.Close();
+            /*    if (service.Images != null)
+                {
+                    AddImages(service.Images, service.Id);
+                }*/
                 result = true;
 
 
@@ -128,35 +147,45 @@ namespace ConnectingUsWebApp.Repositories
         //Update the service in the Database
         public bool UpdateService(Service service)
         {
-            CreateConnection();
+            
             var result = false;
-            using (SqlCommand command_UpdateService = new SqlCommand())
+            try
             {
-                connection.Open();
-
-                command_UpdateService.Connection = connection;
-
-                command_UpdateService.CommandText = "UPDATE services_by_users SET title = @title, description = @description , active = @active " +
-                 "WHERE  id_service = @id_service";
-
-                command_UpdateService.Parameters.AddWithValue("@id_service", service.Id);
-                command_UpdateService.Parameters.AddWithValue("@description", service.Description);
-                command_UpdateService.Parameters.AddWithValue("@title", service.Title);
-
-                //The active column is a BIT in the database
-                if (service.Active)
+                using (SqlCommand command_UpdateService = new SqlCommand())
                 {
-                    command_UpdateService.Parameters.AddWithValue("@active", 1);
-                }
-                else
-                {
-                    command_UpdateService.Parameters.AddWithValue("@active", 0);
-                }
+                    connection.Open();
 
-                command_UpdateService.ExecuteNonQuery();
+                    command_UpdateService.Connection = connection;
+
+                    command_UpdateService.CommandText = "UPDATE services_by_users SET title = @title, description = @description , " +
+                     "active = @active , id_category = @id_category , id_city = @id_city , id_country =  @id_country " +
+                     "WHERE  id_service = @id_service";
+
+                    command_UpdateService.Parameters.AddWithValue("@id_service", service.Id);
+                    command_UpdateService.Parameters.AddWithValue("@description", service.Description);
+                    command_UpdateService.Parameters.AddWithValue("@title", service.Title);
+                    command_UpdateService.Parameters.AddWithValue("@id_category", service.Category.Id);
+                    command_UpdateService.Parameters.AddWithValue("@id_country", service.Country.Id);
+                    command_UpdateService.Parameters.AddWithValue("@id_city", service.City.Id);
+                    //The active column is a BIT in the database
+                    if (service.Active)
+                    {
+                        command_UpdateService.Parameters.AddWithValue("@active", 1);
+                    }
+                    else
+                    {
+                        command_UpdateService.Parameters.AddWithValue("@active", 0);
+                    }
+
+                    command_UpdateService.ExecuteNonQuery();
+                    connection.Close();
+                    result = true;
+
+                }
+            }
+            finally
+            {
                 connection.Close();
-                result = true;
-
             }
             return result;
         }
@@ -170,6 +199,7 @@ namespace ConnectingUsWebApp.Repositories
             CategoriesRepository categoriesRepository = new CategoriesRepository();
             CountriesRepository countriesRepository = new CountriesRepository();
             CitiesRepository citiesRepository = new CitiesRepository();
+            ImagesRepository imagesRepository = new ImagesRepository();
 
             Service service = new Service
             {
@@ -180,8 +210,8 @@ namespace ConnectingUsWebApp.Repositories
                 UserId = Int32.Parse(reader["id_user"].ToString()),
                 Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString())),
                 Country = countriesRepository.GetCountry(Int32.Parse(reader["id_country"].ToString())),
-                City = citiesRepository.GetCity(Int32.Parse(reader["id_city"].ToString()), Int32.Parse(reader["id_country"].ToString()))
-
+                City = citiesRepository.GetCity(Int32.Parse(reader["id_city"].ToString()), Int32.Parse(reader["id_country"].ToString())),
+                Images = imagesRepository.GetImages(Int32.Parse(reader["id_service"].ToString()))
 
 
             };
