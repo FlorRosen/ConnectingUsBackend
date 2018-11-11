@@ -27,20 +27,24 @@ namespace ConnectingUsWebApp.Controllers
 
         //POST api/users
         [HttpPost]
-        public IHttpActionResult Post([FromBody] User user)
+        //public IHttpActionResult Post([FromBody] User user)
+        public User Post([FromBody] User user)
         {
-            var ok = usersRepo.AddUser(user);
+           
+           // user = usersRepo.AddUser(user);
 
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email or nickname already exist");
+            return usersRepo.AddUser(user);
+            // return user != null ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email or nickname already exist");
         }
 
         //POST api/users
         [HttpPut]
         public IHttpActionResult Put([FromBody] User user)
         {
-            var ok = usersRepo.EditUser(user);
-
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Couln't modify the user data");
+           
+            user = usersRepo.EditUser(user);
+  
+            return user != null ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Couln't modify the user data");
         }
     }
 }

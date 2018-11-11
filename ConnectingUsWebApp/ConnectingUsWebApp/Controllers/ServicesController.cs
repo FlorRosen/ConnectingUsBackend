@@ -15,6 +15,7 @@ namespace ConnectingUsWebApp.Controllers
     public class ServicesController : ApiController
     {
         private static readonly ServicesRepository servicesRepo = new ServicesRepository();
+        private static readonly ImagesRepository imagesRepo = new ImagesRepository();
         //[Route("api/services/{idService:int?}")]
 
         //Public Methods
@@ -42,6 +43,24 @@ namespace ConnectingUsWebApp.Controllers
             var ok = servicesRepo.AddService(service);
 
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create service");
+        }
+
+        [Route("api/services/images")]
+        [HttpPost]
+        public IHttpActionResult SaveImagesPost([FromBody] Image image)
+        {
+            var ok = imagesRepo.AddImage(image);
+
+            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.InternalServerError, "Fail save image");
+        }
+
+        [Route("api/services/images")]
+        [HttpGet]
+        public List<Image> GetImages(int idService)
+        {
+           
+
+            return imagesRepo.GetImages(idService);
         }
 
         //PUT api/services

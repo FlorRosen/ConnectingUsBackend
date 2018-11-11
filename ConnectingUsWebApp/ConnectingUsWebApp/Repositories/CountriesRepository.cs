@@ -44,7 +44,7 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from countries"
+                CommandText = "select * from countries order by name"
             };
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())

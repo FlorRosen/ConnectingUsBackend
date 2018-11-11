@@ -49,7 +49,7 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from cities where id_country = @id_country"
+                CommandText = "select * from cities where id_country = @id_country order by name"
             };
             command.Parameters.AddWithValue("@id_country", idCountry);
             connection.Open();

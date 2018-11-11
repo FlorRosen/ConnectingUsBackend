@@ -104,7 +104,7 @@ namespace ConnectingUsWebApp.Repositories
 
 
         //DELETE chat and messages
-        public bool DeleteChat(Chat chat)
+        public bool DeleteChat(int idChat)
         {
             
             var result = false;
@@ -116,12 +116,12 @@ namespace ConnectingUsWebApp.Repositories
                 command_deleteChat.Connection = connection;
                 //delete chat
                 command_deleteChat.CommandText = "delete from chats where id_chat = @id_chat";
-                command_deleteChat.Parameters.AddWithValue("@id_chat", chat.Id);
+                command_deleteChat.Parameters.AddWithValue("@id_chat",idChat);
                 command_deleteChat.ExecuteNonQuery();
 
                 //delete messages
                 command_deleteChat.CommandText = "delete from messages where id_chat = @id_chat";
-                command_deleteChat.Parameters.AddWithValue("@id_chat", chat.Id);
+                command_deleteChat.Parameters.AddWithValue("@id_chat", idChat);
                 command_deleteChat.ExecuteNonQuery();
 
                 connection.Close();
@@ -133,7 +133,7 @@ namespace ConnectingUsWebApp.Repositories
 
 
         //Close the chat and insert the qualification
-        public bool UpdateChat(Chat chat)
+        public bool UpdateChat(Chat chat) //preguntar si puede pasarme solo el id del chat y no todo el objeto
         {
             
             var result = false;

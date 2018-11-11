@@ -24,7 +24,7 @@ namespace ConnectingUsWebApp.Repositories
         //Public Methods
 
         //Brings messages of a chat order by date 
-        public List<Message> GetMessages(int id_chat) 
+        public List<Message> GetMessages(int idChat) 
         {
             List<Message> messages = new List<Message>();
 
@@ -32,7 +32,7 @@ namespace ConnectingUsWebApp.Repositories
             String query = "select * " +
                            "from messages where id_chat = @id_chat order by message_date desc";
             command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_chat", id_chat);
+            command.Parameters.AddWithValue("@id_chat", idChat);
 
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())

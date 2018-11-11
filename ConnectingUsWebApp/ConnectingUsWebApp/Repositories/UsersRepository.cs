@@ -91,74 +91,77 @@ namespace ConnectingUsWebApp.Repositories
             return existence;
         }
 
-        public bool AddUser(User user)
+        public User AddUser(User user)
         {
             var result = true;
-            if (ValidateUserExistance(user.Account)){
+            if (ValidateUserExistance(user.Account)) {
                 result = false;
+                user = null;
             }
             else
             {
-                using (SqlCommand command_addUser = new SqlCommand())
-                {
-                    var date = DateTime.Now;
-                    connection.Open();
-
-                    command_addUser.Connection = connection;
-
-                    command_addUser.CommandText = "INSERT INTO users (id_country, id_birth_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence, phone_area_code) " +
-                     "OUTPUT INSERTED.id_user VALUES (@id_country, @id_birth_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence, @phone_area_code)";
-
-                    command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
-                    command_addUser.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
-                    command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
-                    command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
-                    command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
-                    command_addUser.Parameters.AddWithValue("@create_date", date);
-                    command_addUser.Parameters.AddWithValue("@gender", user.Gender);
-                    command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
-                    command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType);
-                    command_addUser.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
-                    command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
-
-                    SqlParameter param = new SqlParameter("@id_user", SqlDbType.Int, 4)
+                try {
+                    using (SqlCommand command_addUser = new SqlCommand())
                     {
-                        Direction = ParameterDirection.Output
-                    };
-                    command_addUser.Parameters.Add(param);
+                        var date = DateTime.Now;
+                        connection.Open();
 
-                    int userId = (int) command_addUser.ExecuteScalar();
+                        command_addUser.Connection = connection;
 
-                    using (SqlCommand command_addAccountForUser = new SqlCommand()){
-                        command_addAccountForUser.Connection = connection;
+                        command_addUser.CommandText = "INSERT INTO users (id_country, id_birth_country, first_name, last_name, birth_date, create_date, gender, phone_number, phone_type, id_city_residence, phone_area_code) " +
+                         "OUTPUT INSERTED.id_user VALUES (@id_country, @id_birth_country, @first_name, @last_name, @birth_date, @create_date, @gender, @phone_number, @phone_type, @id_city_residence, @phone_area_code)";
 
-                        command_addAccountForUser.CommandText = "INSERT INTO accounts (id_user, mail, nickname, password) VALUES (@id_user, @mail, @nickname, @password)";
+                        command_addUser.Parameters.AddWithValue("@id_country", user.CountryOfResidence.Id);
+                        command_addUser.Parameters.AddWithValue("@id_birth_country", user.CountryOfBirth.Id);
+                        command_addUser.Parameters.AddWithValue("@first_name", user.FirstName);
+                        command_addUser.Parameters.AddWithValue("@last_name", user.LastName);
+                        command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
+                        command_addUser.Parameters.AddWithValue("@create_date", date);
+                        command_addUser.Parameters.AddWithValue("@gender", user.Gender);
+                        command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
+                        command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType);
+                        command_addUser.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
+                        command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
 
-                        command_addAccountForUser.Parameters.AddWithValue("@id_user", userId);
-                        command_addAccountForUser.Parameters.AddWithValue("@mail", user.Account.Mail);
-                        command_addAccountForUser.Parameters.AddWithValue("@nickname", user.Account.Nickname);
-                        command_addAccountForUser.Parameters.AddWithValue("@password", user.Account.Password);
+                        SqlParameter param = new SqlParameter("@id_user", SqlDbType.Int, 4)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        command_addUser.Parameters.Add(param);
 
-                        command_addAccountForUser.ExecuteNonQuery();
+                        int userId = (int)command_addUser.ExecuteScalar();
+                        user.Id = userId;
+
+                        using (SqlCommand command_addAccountForUser = new SqlCommand()) {
+                            command_addAccountForUser.Connection = connection;
+
+                            command_addAccountForUser.CommandText = "INSERT INTO accounts (id_user, mail, nickname, password) " +
+                               "VALUES (@id_user, @mail, @nickname,(CONVERT(varchar(256),HASHBYTES('SHA2_256', @password),2)))";
+
+                            command_addAccountForUser.Parameters.AddWithValue("@id_user", userId);
+                            command_addAccountForUser.Parameters.AddWithValue("@mail", user.Account.Mail);
+                            command_addAccountForUser.Parameters.AddWithValue("@nickname", user.Account.Nickname);
+                            command_addAccountForUser.Parameters.AddWithValue("@password", user.Account.Password);
+
+                            command_addAccountForUser.ExecuteNonQuery();
+                        }
+
                     }
+                    connection.Close();
 
                 }
+                finally {
+                    connection.Close();
+                }
             }
-
-            connection.Close();
-            return result;
+            return user;
 
         }
 
-        public bool EditUser(User user)
+        public User EditUser(User user)
         {
-            var result = false;
 
-            if (ValidateUserExistance(user.Account))
-            {
-                result = false;
-            }
-            else
+            try
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -187,8 +190,7 @@ namespace ConnectingUsWebApp.Repositories
                     {
                         command_Account.Connection = connection;
 
-                        command_Account.CommandText = "UPDATE accounts SET mail = @mail, nickname = @nickname, password = @password WHERE @id_user = @id_user";
-
+                        command_Account.CommandText = "UPDATE accounts SET password = (CONVERT(varchar(256),HASHBYTES('SHA2_256', @password),2)) WHERE @id_user = @id_user";
                         command_Account.Parameters.AddWithValue("@id_user", user.Id);
                         command_Account.Parameters.AddWithValue("@mail", user.Account.Mail);
                         command_Account.Parameters.AddWithValue("@nickname", user.Account.Nickname);
@@ -197,13 +199,16 @@ namespace ConnectingUsWebApp.Repositories
                         command_Account.ExecuteNonQuery();
 
                         connection.Close();
-                        result = true;
                     }
                 }
-               
             }
+            finally
+            {
+                connection.Close();
+            }
+            
 
-            return result;
+            return user;
         }
 
         public static User MapUserFromDB(SqlDataReader reader)
