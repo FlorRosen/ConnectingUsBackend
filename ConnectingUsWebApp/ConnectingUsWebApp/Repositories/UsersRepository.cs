@@ -178,9 +178,9 @@ namespace ConnectingUsWebApp.Repositories
                     command.Parameters.AddWithValue("@last_name", user.LastName);
                     command.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                     command.Parameters.AddWithValue("@gender", user.Gender);
-                    command.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
-                    command.Parameters.AddWithValue("@phone_type", user.PhoneType);
-                    command.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
+                    command.Parameters.AddWithValue("@phone_number", user.PhoneNumber ?? Convert.DBNull);
+                    command.Parameters.AddWithValue("@phone_type", user.PhoneType ?? Convert.DBNull);
+                    command.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode ?? Convert.DBNull);
                     command.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
                     command.Parameters.AddWithValue("@id_user", user.Id);
 
