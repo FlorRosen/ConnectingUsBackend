@@ -118,9 +118,9 @@ namespace ConnectingUsWebApp.Repositories
                         command_addUser.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                         command_addUser.Parameters.AddWithValue("@create_date", date);
                         command_addUser.Parameters.AddWithValue("@gender", user.Gender);
-                        command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
-                        command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType);
-                        command_addUser.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
+                        command_addUser.Parameters.AddWithValue("@phone_number", user.PhoneNumber ?? Convert.DBNull);
+                        command_addUser.Parameters.AddWithValue("@phone_type", user.PhoneType ?? Convert.DBNull);
+                        command_addUser.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode ?? Convert.DBNull);
                         command_addUser.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
 
                         SqlParameter param = new SqlParameter("@id_user", SqlDbType.Int, 4)
@@ -178,9 +178,9 @@ namespace ConnectingUsWebApp.Repositories
                     command.Parameters.AddWithValue("@last_name", user.LastName);
                     command.Parameters.AddWithValue("@birth_date", user.DateOfBirth);
                     command.Parameters.AddWithValue("@gender", user.Gender);
-                    command.Parameters.AddWithValue("@phone_number", user.PhoneNumber);
-                    command.Parameters.AddWithValue("@phone_type", user.PhoneType);
-                    command.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode);
+                    command.Parameters.AddWithValue("@phone_number", user.PhoneNumber ?? Convert.DBNull);
+                    command.Parameters.AddWithValue("@phone_type", user.PhoneType ?? Convert.DBNull);
+                    command.Parameters.AddWithValue("@phone_area_code", user.PhoneAreaCode ?? Convert.DBNull);
                     command.Parameters.AddWithValue("@id_city_residence", user.CityOfResidence.Id);
                     command.Parameters.AddWithValue("@id_user", user.Id);
 
