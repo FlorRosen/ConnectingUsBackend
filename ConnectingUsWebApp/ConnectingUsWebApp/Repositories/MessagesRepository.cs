@@ -54,7 +54,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
         //Add message to the chat. Sends the notification by mail
-        public bool AddMessage(Message message)
+        public Message AddMessage(Message message)
         {
             
             var result = false;
@@ -68,13 +68,21 @@ namespace ConnectingUsWebApp.Repositories
                     command_addMeesage.Connection = connection;
 
                     command_addMeesage.CommandText = "INSERT INTO messages (id_chat, message,message_date,id_sender_user,id_receiver_user) " +
-                     "VALUES (@id_chat,@text,getdate(), @id_user_sender,@id_user_receiver)";
+                     "OUTPUT INSERTED.id_message   VALUES (@id_chat,@text,getdate(), @id_user_sender,@id_user_receiver)";
 
                     command_addMeesage.Parameters.AddWithValue("@id_chat", message.IdChat);
                     command_addMeesage.Parameters.AddWithValue("@text", message.Text);
                     command_addMeesage.Parameters.AddWithValue("@id_user_sender", message.UserSenderId);
                     command_addMeesage.Parameters.AddWithValue("@id_user_receiver", message.UserReceiverId);
-                    command_addMeesage.ExecuteNonQuery();
+
+                    SqlParameter param = new SqlParameter("@id_message", SqlDbType.Int, 4)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command_addMeesage.Parameters.Add(param);
+
+                    int messageId = (int)command_addMeesage.ExecuteScalar();
+                    message.Id = messageId;
 
                     command_addMeesage.CommandText = "UPDATE chats SET last_message_date = getdate() " +
                      "WHERE id_chat= @id_chat";
@@ -88,7 +96,7 @@ namespace ConnectingUsWebApp.Repositories
             {
                 connection.Close();
             }
-            return result;
+            return message;
         }
 
 
