@@ -63,55 +63,76 @@ namespace ConnectingUsWebApp.Repositories
         public Chat GetChat(int idChat)
         {
             Chat chat = new Chat();
-
-
-            String query = "select * from chats " +
-                "where id_chat = @id_chat";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_chat", idChat);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
-                {
-                    chat = MapChatFromDB(reader);
-                }
-            }
 
-            connection.Close();
+                String query = "select * from chats " +
+                    "where id_chat = @id_chat";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_chat", idChat);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        chat = MapChatFromDB(reader);
+                    }
+                }
+
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
             return chat;
         }
 
 
         //Create new chat
-        public bool AddChat(Chat chat)
+        public Chat AddChat(Chat chat)
         {
             
             var result = false;
-
-            using (SqlCommand command_addChat = new SqlCommand())
+            try
             {
-                connection.Open();
+                using (SqlCommand command_addChat = new SqlCommand())
+                {
+                    connection.Open();
 
-                command_addChat.Connection = connection;
+                    command_addChat.Connection = connection;
 
-                command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_offertor,last_message_date) " +
-                 "VALUES (@id_service, @id_user_requester,@id_user_offertor,getdate())";
+                    command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_offertor,last_message_date) " +
+                     "OUTPUT INSERTED.id_chat  VALUES (@id_service, @id_user_requester,@id_user_offertor,getdate())";
 
-                command_addChat.Parameters.AddWithValue("@id_service", chat.Service.Id);
-                command_addChat.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
-                command_addChat.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
+                    command_addChat.Parameters.AddWithValue("@id_service", chat.Service.Id);
+                    command_addChat.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
+                    command_addChat.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
 
-                command_addChat.ExecuteNonQuery();
-                connection.Close();
-                result = true;
+                    SqlParameter param = new SqlParameter("@id_chat", SqlDbType.Int, 4)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command_addChat.Parameters.Add(param);
 
+                    int chatId = (int)command_addChat.ExecuteScalar();
+                    
+                    connection.Close();
+                    result = true;
+                    chat = GetChat(chatId);
+
+
+                }
             }
-            return result;
+            finally
+            {
+                connection.Close();
+            }
+            return chat;
         }
 
-        public bool AddMessage(Message message)
+        public Message AddMessage(Message message)
         {
             MessagesRepository messagesRepository = new MessagesRepository();               
             return messagesRepository.AddMessage(message);

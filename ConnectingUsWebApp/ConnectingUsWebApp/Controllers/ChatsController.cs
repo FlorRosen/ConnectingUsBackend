@@ -36,11 +36,11 @@ namespace ConnectingUsWebApp.Controllers
 
         //Create a new chat
         [HttpPost]
-        public IHttpActionResult Post([FromBody] Chat chat)
+        public Chat Post([FromBody] Chat chat)
         {
-            var ok = chatsRepo.AddChat(chat);
-
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create chat");
+            //var ok = chatsRepo.AddChat(chat);
+            return chatsRepo.AddChat(chat);
+            //return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create chat");
         }
 
         
@@ -48,9 +48,9 @@ namespace ConnectingUsWebApp.Controllers
         //if message is created correctly, it sends the email via smtp
         [Route("api/chats/messages")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody] Message message)
+        public Message Post([FromBody] Message message)
         {
-            var ok = chatsRepo.AddMessage(message);
+           // var ok = chatsRepo.AddMessage(message);
 
             /*if (ok) {
 
@@ -74,7 +74,7 @@ namespace ConnectingUsWebApp.Controllers
                 }
             }*/
 
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail add message to chat");
+            return chatsRepo.AddMessage(message);
         }
 
         //close the chat

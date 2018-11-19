@@ -106,40 +106,44 @@ namespace ConnectingUsWebApp.Repositories
         {
            
             var result = false;
+            try {
+                using (SqlCommand command_addService = new SqlCommand())
+                {
+                    connection.Open();
 
-            using (SqlCommand command_addService = new SqlCommand())
+                    command_addService.Connection = connection;
+
+                    command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description,id_country,id_city,create_date) " +
+                     "OUTPUT INSERTED.id_service VALUES (@id_category, @id_user,@title, @description, @id_country, @id_city,getdate())";
+
+                    command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
+                    command_addService.Parameters.AddWithValue("@id_user", service.UserId);
+                    command_addService.Parameters.AddWithValue("@title", service.Title);
+                    command_addService.Parameters.AddWithValue("@description", service.Description);
+                    command_addService.Parameters.AddWithValue("@id_country", service.Country.Id);
+                    command_addService.Parameters.AddWithValue("@id_city", service.City.Id);
+
+                    SqlParameter param = new SqlParameter("@id_service", SqlDbType.Int, 4)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    command_addService.Parameters.Add(param);
+
+                    int Id = (int)command_addService.ExecuteScalar();
+
+                    //command_addService.ExecuteNonQuery();
+                    connection.Close();
+                    /*    if (service.Images != null)
+                        {
+                            AddImages(service.Images, service.Id);
+                        }*/
+                    result = true;
+                }
+
+            }
+            finally
             {
-                connection.Open();
-
-                command_addService.Connection = connection;
-
-                command_addService.CommandText = "INSERT INTO services_by_users (id_category, id_user,title, description,id_country,id_city,create_date) " +
-                 "OUTPUT INSERTED.id_service VALUES (@id_category, @id_user,@title, @description, @id_country, @id_city,getdate())";
-
-                command_addService.Parameters.AddWithValue("@id_category", service.Category.Id);
-                command_addService.Parameters.AddWithValue("@id_user", service.UserId);
-                command_addService.Parameters.AddWithValue("@title", service.Title);
-                command_addService.Parameters.AddWithValue("@description", service.Description);
-                command_addService.Parameters.AddWithValue("@id_country", service.Country.Id);
-                command_addService.Parameters.AddWithValue("@id_city", service.City.Id);
-
-                SqlParameter param = new SqlParameter("@id_service", SqlDbType.Int, 4)
-                {
-                    Direction = ParameterDirection.Output
-                };
-                command_addService.Parameters.Add(param);
-
-                int Id = (int)command_addService.ExecuteScalar();
-
-                //command_addService.ExecuteNonQuery();
                 connection.Close();
-            /*    if (service.Images != null)
-                {
-                    AddImages(service.Images, service.Id);
-                }*/
-                result = true;
-
-
             }
             return result;
         }
