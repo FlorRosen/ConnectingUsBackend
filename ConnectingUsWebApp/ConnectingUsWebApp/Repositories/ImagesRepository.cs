@@ -23,7 +23,7 @@ namespace ConnectingUsWebApp.Repositories
         }
         //Public Methods
         //Brings all images for a service
-        public Image GetImages(int idService)
+        public Image GetImage(int idService)
         {
             Image image = new Image();
 
@@ -78,6 +78,38 @@ namespace ConnectingUsWebApp.Repositories
             return result;
         }
 
+
+        public bool UpdateImage(Image image)
+        {
+            var result = false;
+
+            try
+            {
+
+                using (SqlCommand command_addImage = new SqlCommand())
+                {
+
+                    connection.Open();
+
+                    command_addImage.Connection = connection;
+
+                    command_addImage.CommandText = "UPDATE services_images SET image = @image " +
+                        "WHERE id_service = @id_service";
+
+                    command_addImage.Parameters.AddWithValue("@id_service", image.IdService);
+                    command_addImage.Parameters.AddWithValue("@image", image.ImageString);
+
+                    command_addImage.ExecuteNonQuery();
+                    connection.Close();
+                    result = true;
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
 
 
         //Private Methods

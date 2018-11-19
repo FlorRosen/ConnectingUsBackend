@@ -102,7 +102,7 @@ namespace ConnectingUsWebApp.Repositories
                      "VALUES (@id_chat, @id_user_requester,@id_user_ofertor,@punctuation,getdate())";
 
                     command_addQualification.Parameters.AddWithValue("@id_chat", chat.Id);
-                    command_addQualification.Parameters.AddWithValue("@id_user_ofertor", chat.UserOfertorId);
+                    command_addQualification.Parameters.AddWithValue("@id_user_ofertor", chat.UserOffertorId);
                     command_addQualification.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
                     command_addQualification.Parameters.AddWithValue("@punctuation", chat.Qualification.QualificationNumber);
 

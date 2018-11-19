@@ -22,27 +22,41 @@ namespace ConnectingUsWebApp.Repositories
             connection = new SqlConnection(constr);
         }
 
-        public List<Chat> GetChats(int idUser)
+        public List<Chat> GetChats(int? idUserOffertor,int? idUserRequester)
         {
             List<Chat> chats = new List<Chat>();
 
-           
-            String query = "select * from chats " +
-                "where id_user_requester = @id_user or id_user_ofertor = @id_user " +
-                "order by last_message_date desc";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_user", idUser);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                String query = "select * from chats " +
+                    "where id_user_requester = @id_user_requester or id_user_offertor = @id_user_offertor " +
+                    "order by last_message_date desc";
+                command = new SqlCommand(query, connection);
+                if (idUserOffertor != null)
                 {
-                    Chat chat = MapChatFromDB(reader);
-                    chats.Add(chat);
+                    command.Parameters.AddWithValue("@id_user_offertor", idUserOffertor);
+                    command.Parameters.AddWithValue("@id_user_requester", Convert.DBNull);
                 }
+                else
+                {
+                    command.Parameters.AddWithValue("@id_user_requester", idUserRequester);
+                    command.Parameters.AddWithValue("@id_user_offertor", Convert.DBNull);
+                }
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Chat chat = MapChatFromDB(reader);
+                        chats.Add(chat);
+                    }
+                }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return chats;
         }
 
@@ -82,11 +96,11 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_addChat.Connection = connection;
 
-                command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_ofertor,last_message_date) " +
-                 "VALUES (@id_service, @id_user_requester,@id_user_ofertor,getdate())";
+                command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_offertor,last_message_date) " +
+                 "VALUES (@id_service, @id_user_requester,@id_user_offertor,getdate())";
 
                 command_addChat.Parameters.AddWithValue("@id_service", chat.Service.Id);
-                command_addChat.Parameters.AddWithValue("@id_user_ofertor", chat.UserOfertorId);
+                command_addChat.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
                 command_addChat.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
 
                 command_addChat.ExecuteNonQuery();
@@ -187,12 +201,12 @@ namespace ConnectingUsWebApp.Repositories
             {
                 Id = Int32.Parse(reader["id_chat"].ToString()),
                 UserRequesterId = Int32.Parse(reader["id_user_requester"].ToString()),
-                UserOfertorId = Int32.Parse(reader["id_user_ofertor"].ToString()),
+                UserOffertorId = Int32.Parse(reader["id_user_offertor"].ToString()),
                 Active = Boolean.Parse(reader["active"].ToString()),
                 Service = servicesRepository.GetServices(Int32.Parse(reader["id_service"].ToString()),null,null).First<Service>(),
                 Messages = messagesRepository.GetMessages(Int32.Parse(reader["id_chat"].ToString())),
                 UserRequesterNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_requester"].ToString())).Account.Nickname,
-                UserOfertorNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_ofertor"].ToString())).Account.Nickname,
+                UserOffertorNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_offertor"].ToString())).Account.Nickname,
                 LastMessageDate = Convert.ToDateTime(reader["last_message_date"].ToString()),
             };
 

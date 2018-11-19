@@ -13,6 +13,8 @@ namespace ConnectingUsWebApp.Models
         public int UserReceiverId { get; set; }
         public String Text { get; set; }
         public int IdChat { get; set; }
+        public string UserSenderNickname { get; set; }
+        public string UserReceiverNickname { get; set; }
 
 
 
