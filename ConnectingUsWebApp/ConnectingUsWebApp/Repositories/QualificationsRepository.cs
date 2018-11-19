@@ -27,74 +27,95 @@ namespace ConnectingUsWebApp.Repositories
         {
             List<Qualification> qualifications = new List<Qualification>();
 
-
-            String query = "select * from qualifications " +
-                " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user_ofertor = @id_user)) order by punctuation_date desc";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+
+
+                String query = "select * from qualifications " +
+                    " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user_ofertor = @id_user)) order by punctuation_date desc";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Qualification qualification = MapQualificationsFromDB(reader);
-                    qualifications.Add(qualification);
+                    while (reader.Read())
+                    {
+                        Qualification qualification = MapQualificationsFromDB(reader);
+                        qualifications.Add(qualification);
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return qualifications;
         }
 
         //Get the average qualifications
-        public List<Qualification> GetAvgQualifications(int? idUser)
+        public decimal GetAvgQualifications(int idUser)
         {
-            List<Qualification> qualifications = new List<Qualification>();
-
-
-            String query = "select AVG(punctuation) from qualifications GROUP BY id_user_ofertor" +
-                " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user_ofertor = @id_user))";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            decimal qualification = 0;
+            try
             {
-                while (reader.Read())
+
+                String query = "select (convert(decimal(9, 2), avg(cast(punctuation as float)))) from qualifications where id_user_ofertor = @id_user " +
+                "GROUP BY id_user_ofertor";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_user", idUser);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Qualification qualification = MapQualificationsFromDB(reader);
-                    qualifications.Add(qualification);
+                    while (reader.Read())
+                    {
+                        qualification = reader.GetDecimal(0);
+                    }
                 }
+                connection.Close();
+
             }
-            connection.Close();
-            return qualifications;
-        }
+       
+            finally
+            {
+                connection.Close();
+            }
+            return qualification;
+            }
 
         //Add message to the chat. Sends the notification by mail
         public bool AddQualification(Chat chat)
         {
 
             var result = false;
-            
-            using (SqlCommand command_addQualification = new SqlCommand())
+            try
             {
-                connection.Open();
+                using (SqlCommand command_addQualification = new SqlCommand())
+                {
+                    connection.Open();
 
-                command_addQualification.Connection = connection;
+                    command_addQualification.Connection = connection;
 
-                command_addQualification.CommandText = "INSERT INTO qualifications (id_chat, id_user_requester,id_user_ofertor,punctuation,punctuation_date) " +
-                 "VALUES (@id_chat, @id_user_requester,@id_user_ofertor,@punctuation,getdate())";
+                    command_addQualification.CommandText = "INSERT INTO qualifications (id_chat, id_user_requester,id_user_ofertor,punctuation,punctuation_date) " +
+                     "VALUES (@id_chat, @id_user_requester,@id_user_ofertor,@punctuation,getdate())";
 
-                command_addQualification.Parameters.AddWithValue("@id_chat", chat.Id);
-                command_addQualification.Parameters.AddWithValue("@id_user_ofertor", chat.UserOfertorId);
-                command_addQualification.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
-                command_addQualification.Parameters.AddWithValue("@punctuation", chat.Qualification.QualificationNumber);
-                
+                    command_addQualification.Parameters.AddWithValue("@id_chat", chat.Id);
+                    command_addQualification.Parameters.AddWithValue("@id_user_ofertor", chat.UserOfertorId);
+                    command_addQualification.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
+                    command_addQualification.Parameters.AddWithValue("@punctuation", chat.Qualification.QualificationNumber);
 
-                command_addQualification.ExecuteNonQuery();
+
+                    command_addQualification.ExecuteNonQuery();
+                    connection.Close();
+                    result = true;
+
+                }
+            }
+            finally
+            {
                 connection.Close();
-                result = true;
-
             }
             return result;
         }

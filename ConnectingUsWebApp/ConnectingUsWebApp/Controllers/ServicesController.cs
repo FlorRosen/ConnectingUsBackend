@@ -56,7 +56,7 @@ namespace ConnectingUsWebApp.Controllers
 
         [Route("api/services/images")]
         [HttpGet]
-        public List<Image> GetImages(int idService)
+        public Image GetImages(int idService)
         {
            
 

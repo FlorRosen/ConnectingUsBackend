@@ -17,6 +17,7 @@ namespace ConnectingUsWebApp.Models
         public string PhoneNumber { get; set; }
         public string PhoneAreaCode { get; set; }
         public City CityOfResidence { get; set; }
-      
+        public decimal Reputation { get; set; }
+
     }
 }

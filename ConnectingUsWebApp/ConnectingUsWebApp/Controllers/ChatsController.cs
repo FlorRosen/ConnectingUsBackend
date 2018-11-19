@@ -23,6 +23,7 @@ namespace ConnectingUsWebApp.Controllers
             return chats;
         }
 
+
         //Create a new chat
         [HttpPost]
         public IHttpActionResult Post([FromBody] Chat chat)
@@ -93,6 +94,13 @@ namespace ConnectingUsWebApp.Controllers
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to update chat");
         }
 
-       
+        //get chat by id
+        [Route("api/chats/chat")]
+        [HttpGet]
+        public Chat GetChat(int idChat)
+        {
+            Chat chat = chatsRepo.GetChat(idChat);
+            return chat;
+        }
     }
 }

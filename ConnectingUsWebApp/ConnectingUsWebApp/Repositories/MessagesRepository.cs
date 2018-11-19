@@ -28,22 +28,28 @@ namespace ConnectingUsWebApp.Repositories
         {
             List<Message> messages = new List<Message>();
 
-           
-            String query = "select * " +
-                           "from messages where id_chat = @id_chat order by message_date desc";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_chat", idChat);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                String query = "select * " +
+                               "from messages where id_chat = @id_chat order by message_date desc";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_chat", idChat);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Message message = MapMessagesFromDB(reader);
-                    messages.Add(message);
+                    while (reader.Read())
+                    {
+                        Message message = MapMessagesFromDB(reader);
+                        messages.Add(message);
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return messages;
         }
 
@@ -52,26 +58,35 @@ namespace ConnectingUsWebApp.Repositories
         {
             
             var result = false;
-
-            using (SqlCommand command_addMeesage = new SqlCommand())
+            try
             {
-               
-                connection.Open();
+                using (SqlCommand command_addMeesage = new SqlCommand())
+                {
 
-                command_addMeesage.Connection = connection;
+                    connection.Open();
 
-                command_addMeesage.CommandText = "INSERT INTO messages (id_chat, message,message_date,id_sender_user,id_receiver_user) " +
-                 "VALUES (@id_chat,@text,getdate(), @id_user_sender,@id_user_receiver)";
+                    command_addMeesage.Connection = connection;
 
-                command_addMeesage.Parameters.AddWithValue("@id_chat", message.IdChat);
-                command_addMeesage.Parameters.AddWithValue("@text", message.Text);
-                command_addMeesage.Parameters.AddWithValue("@id_user_sender", message.UserSenderId);
-                command_addMeesage.Parameters.AddWithValue("@id_user_receiver", message.UserReceiverId);
-                
+                    command_addMeesage.CommandText = "INSERT INTO messages (id_chat, message,message_date,id_sender_user,id_receiver_user) " +
+                     "VALUES (@id_chat,@text,getdate(), @id_user_sender,@id_user_receiver)";
 
-                command_addMeesage.ExecuteNonQuery();
+                    command_addMeesage.Parameters.AddWithValue("@id_chat", message.IdChat);
+                    command_addMeesage.Parameters.AddWithValue("@text", message.Text);
+                    command_addMeesage.Parameters.AddWithValue("@id_user_sender", message.UserSenderId);
+                    command_addMeesage.Parameters.AddWithValue("@id_user_receiver", message.UserReceiverId);
+                    command_addMeesage.ExecuteNonQuery();
+
+                    command_addMeesage.CommandText = "UPDATE chats SET last_message_date = getdate() " +
+                     "WHERE id_chat= @id_chat";
+
+                    command_addMeesage.ExecuteNonQuery();
+                    connection.Close();
+                    result = true;
+                }
+            }
+            finally
+            {
                 connection.Close();
-                result = true;
             }
             return result;
         }
@@ -90,11 +105,10 @@ namespace ConnectingUsWebApp.Repositories
                 UserReceiverId = Int32.Parse(reader["id_receiver_user"].ToString()),
                 UserSenderId = Int32.Parse(reader["id_sender_user"].ToString()),
                 Date = Convert.ToDateTime(reader["message_date"].ToString()),
-                IdChat = Int32.Parse(reader["id_chat"].ToString())
-                
+                IdChat = Int32.Parse(reader["id_chat"].ToString()),
+                Id = Int32.Parse(reader["id_message"].ToString()),
 
-
-    };
+            };
 
             return message;
         }

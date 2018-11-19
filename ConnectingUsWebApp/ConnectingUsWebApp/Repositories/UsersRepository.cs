@@ -216,6 +216,7 @@ namespace ConnectingUsWebApp.Repositories
             CountriesRepository countriesRepo = new CountriesRepository();
             CitiesRepository citiesRepo = new CitiesRepository();
             LoginRepository loginRepo = new LoginRepository();
+            QualificationsRepository qualyrepo = new QualificationsRepository();
 
             User user = new User
             {
@@ -231,7 +232,8 @@ namespace ConnectingUsWebApp.Repositories
                 CountryOfResidence = countriesRepo.GetCountry(Int32.Parse(reader["id_country"].ToString())),
                 CountryOfBirth = countriesRepo.GetCountry(Int32.Parse(reader["id_birth_country"].ToString())),
                 CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString())),
-                Account = loginRepo.GetAccount(Int32.Parse(reader["id_user"].ToString()))
+                Account = loginRepo.GetAccount(Int32.Parse(reader["id_user"].ToString())),
+                Reputation = qualyrepo.GetAvgQualifications(Int32.Parse(reader["id_user"].ToString()))
             };
 
             return user;
