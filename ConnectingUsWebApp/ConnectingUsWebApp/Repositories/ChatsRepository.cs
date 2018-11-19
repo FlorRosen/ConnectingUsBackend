@@ -28,7 +28,8 @@ namespace ConnectingUsWebApp.Repositories
 
            
             String query = "select * from chats " +
-                "where id_user_requester = @id_user or id_user_ofertor = @id_user";
+                "where id_user_requester = @id_user or id_user_ofertor = @id_user " +
+                "order by last_message_date desc";
             command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@id_user", idUser);
 
@@ -81,8 +82,8 @@ namespace ConnectingUsWebApp.Repositories
 
                 command_addChat.Connection = connection;
 
-                command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_ofertor) " +
-                 "VALUES (@id_service, @id_user_requester,@id_user_ofertor)";
+                command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_ofertor,last_message_date) " +
+                 "VALUES (@id_service, @id_user_requester,@id_user_ofertor,getdate())";
 
                 command_addChat.Parameters.AddWithValue("@id_service", chat.Service.Id);
                 command_addChat.Parameters.AddWithValue("@id_user_ofertor", chat.UserOfertorId);
@@ -137,33 +138,40 @@ namespace ConnectingUsWebApp.Repositories
         {
             
             var result = false;
-            using (SqlCommand command_UpdateChat = new SqlCommand())
+            try
             {
-                connection.Open();
-
-                command_UpdateChat.Connection = connection;
-
-                command_UpdateChat.CommandText = "UPDATE chats SET active = 0 " +
-                 "WHERE  id_chat = @id_chat";
-
-                command_UpdateChat.Parameters.AddWithValue("@id_chat", chat.Id);
-                
-                //The active column is a BIT in the database
-                if (chat.Active)
+                using (SqlCommand command_UpdateChat = new SqlCommand())
                 {
-                    command_UpdateChat.Parameters.AddWithValue("@active", 1);
+                    connection.Open();
+
+                    command_UpdateChat.Connection = connection;
+
+                    command_UpdateChat.CommandText = "UPDATE chats SET active = 0 " +
+                     "WHERE  id_chat = @id_chat";
+
+                    command_UpdateChat.Parameters.AddWithValue("@id_chat", chat.Id);
+
+                    //The active column is a BIT in the database
+                    if (chat.Active)
+                    {
+                        command_UpdateChat.Parameters.AddWithValue("@active", 1);
+                    }
+                    else
+                    {
+                        command_UpdateChat.Parameters.AddWithValue("@active", 0);
+                    }
+                    command_UpdateChat.ExecuteNonQuery();
+                    connection.Close();
+
+                    QualificationsRepository qualificationsRepository = new QualificationsRepository();
+
+                    result = qualificationsRepository.AddQualification(chat);
+
                 }
-                else
-                {
-                    command_UpdateChat.Parameters.AddWithValue("@active", 0);
-                }
-                command_UpdateChat.ExecuteNonQuery();
+            }
+            finally
+            {
                 connection.Close();
-
-                QualificationsRepository qualificationsRepository = new QualificationsRepository();
-                              
-                result = qualificationsRepository.AddQualification(chat);
-
             }
             return result;
         }
@@ -182,7 +190,10 @@ namespace ConnectingUsWebApp.Repositories
                 UserOfertorId = Int32.Parse(reader["id_user_ofertor"].ToString()),
                 Active = Boolean.Parse(reader["active"].ToString()),
                 Service = servicesRepository.GetServices(Int32.Parse(reader["id_service"].ToString()),null,null).First<Service>(),
-                Messages = messagesRepository.GetMessages(Int32.Parse(reader["id_chat"].ToString()))
+                Messages = messagesRepository.GetMessages(Int32.Parse(reader["id_chat"].ToString())),
+                UserRequesterNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_requester"].ToString())).Account.Nickname,
+                UserOfertorNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_ofertor"].ToString())).Account.Nickname,
+                LastMessageDate = Convert.ToDateTime(reader["last_message_date"].ToString()),
             };
 
             return chat;

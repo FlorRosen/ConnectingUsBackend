@@ -67,15 +67,15 @@ namespace ConnectingUsWebApp.Repositories
             connection.Close();
             return account;
         }
-
-        public Account MapAccountFromDB(SqlDataReader reader){
+        //Private Methods
+        private Account MapAccountFromDB(SqlDataReader reader){
 
             Account account = new Account
             {
                 Id = Int32.Parse(reader["id_user"].ToString()),
                 Mail = reader["mail"].ToString(),
                 Nickname = reader["nickname"].ToString(),
-                Password = reader["password"].ToString()
+               // Password = reader["password"].ToString()
             };
 
             return account;

@@ -23,9 +23,9 @@ namespace ConnectingUsWebApp.Repositories
         }
         //Public Methods
         //Brings all images for a service
-        public List<Image> GetImages(int idService)
+        public Image GetImages(int idService)
         {
-            List<Image> images = new List<Image>();
+            Image image = new Image();
 
 
             String query = "select * " +
@@ -38,13 +38,12 @@ namespace ConnectingUsWebApp.Repositories
             {
                 while (reader.Read())
                 {
-                    Image image = MapImageFromDB(reader);
-
-                    images.Add(image);
+                    image = MapImageFromDB(reader);
+                    
                 }
             }
             connection.Close();
-            return images;
+            return image;
         }
 
         public bool AddImage(Image image)

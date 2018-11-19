@@ -211,7 +211,7 @@ namespace ConnectingUsWebApp.Repositories
                 Category = categoriesRepository.GetCategory(Int32.Parse(reader["id_category"].ToString())),
                 Country = countriesRepository.GetCountry(Int32.Parse(reader["id_country"].ToString())),
                 City = citiesRepository.GetCity(Int32.Parse(reader["id_city"].ToString()), Int32.Parse(reader["id_country"].ToString())),
-                Images = imagesRepository.GetImages(Int32.Parse(reader["id_service"].ToString()))
+                Image = imagesRepository.GetImages(Int32.Parse(reader["id_service"].ToString())).ImageString,
 
 
             };
