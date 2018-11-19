@@ -190,7 +190,7 @@ namespace ConnectingUsWebApp.Repositories
                     {
                         command_Account.Connection = connection;
 
-                        command_Account.CommandText = "UPDATE accounts SET password = (CONVERT(varchar(256),HASHBYTES('SHA2_256', @password),2)) WHERE @id_user = @id_user";
+                        command_Account.CommandText = "UPDATE accounts SET password = (CONVERT(varchar(256),HASHBYTES('SHA2_256', @password),2)) WHERE id_user = @id_user";
                         command_Account.Parameters.AddWithValue("@id_user", user.Id);
                         command_Account.Parameters.AddWithValue("@mail", user.Account.Mail);
                         command_Account.Parameters.AddWithValue("@nickname", user.Account.Nickname);
