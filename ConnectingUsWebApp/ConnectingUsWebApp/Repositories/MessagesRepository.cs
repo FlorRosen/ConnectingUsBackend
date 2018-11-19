@@ -31,7 +31,7 @@ namespace ConnectingUsWebApp.Repositories
             try
             {
                 String query = "select * " +
-                               "from messages where id_chat = @id_chat order by message_date desc";
+                               "from messages where id_chat = @id_chat order by message_date asc";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_chat", idChat);
 
@@ -107,6 +107,8 @@ namespace ConnectingUsWebApp.Repositories
                 Date = Convert.ToDateTime(reader["message_date"].ToString()),
                 IdChat = Int32.Parse(reader["id_chat"].ToString()),
                 Id = Int32.Parse(reader["id_message"].ToString()),
+                UserSenderNickname = usersRepository.GetUser(Int32.Parse(reader["id_receiver_user"].ToString())).Account.Nickname,
+                UserReceiverNickname = usersRepository.GetUser(Int32.Parse(reader["id_sender_user"].ToString())).Account.Nickname,
 
             };
 

@@ -15,11 +15,21 @@ namespace ConnectingUsWebApp.Controllers
     {
         private static readonly ChatsRepository chatsRepo = new ChatsRepository();
 
-
-        [HttpGet]
-        public IEnumerable<Chat> GetChats(int idUser)
+        //get chats when idUser is the provider of a service
+                [HttpGet]
+        [Route("api/chats/offertor")]
+        public IEnumerable<Chat> GetChatsOffertor(int idUser)
         {
-            List<Chat> chats = chatsRepo.GetChats(idUser);
+            List<Chat> chats = chatsRepo.GetChats(idUser,null);
+            return chats;
+        }
+
+        //get chats when idUser is the requester of a service
+        [HttpGet]
+        [Route("api/chats/requester")]
+        public IEnumerable<Chat> GetChatsRequester(int idUser)
+        {
+            List<Chat> chats = chatsRepo.GetChats(null,idUser);
             return chats;
         }
 
