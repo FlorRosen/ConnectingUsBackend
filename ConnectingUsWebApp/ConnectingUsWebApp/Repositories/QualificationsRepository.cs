@@ -32,7 +32,7 @@ namespace ConnectingUsWebApp.Repositories
 
 
                 String query = "select * from qualifications " +
-                    " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user_ofertor = @id_user)) order by punctuation_date desc";
+                    " ((@id_user IS NULL) OR (@id_user IS NOT NULL AND id_user_offertor = @id_user)) order by punctuation_date desc";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_user", idUser ?? Convert.DBNull);
 
@@ -61,8 +61,8 @@ namespace ConnectingUsWebApp.Repositories
             try
             {
 
-                String query = "select (convert(decimal(9, 2), avg(cast(punctuation as float)))) from qualifications where id_user_ofertor = @id_user " +
-                "GROUP BY id_user_ofertor";
+                String query = "select (convert(decimal(9, 2), avg(cast(punctuation as float)))) from qualifications where id_user_offertor = @id_user " +
+                "GROUP BY id_user_offertor";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_user", idUser);
 
@@ -98,11 +98,11 @@ namespace ConnectingUsWebApp.Repositories
 
                     command_addQualification.Connection = connection;
 
-                    command_addQualification.CommandText = "INSERT INTO qualifications (id_chat, id_user_requester,id_user_ofertor,punctuation,punctuation_date) " +
-                     "VALUES (@id_chat, @id_user_requester,@id_user_ofertor,@punctuation,getdate())";
+                    command_addQualification.CommandText = "INSERT INTO qualifications (id_chat, id_user_requester,id_user_offertor,punctuation,punctuation_date) " +
+                     "VALUES (@id_chat, @id_user_requester,@id_user_offertor,@punctuation,getdate())";
 
                     command_addQualification.Parameters.AddWithValue("@id_chat", chat.Id);
-                    command_addQualification.Parameters.AddWithValue("@id_user_ofertor", chat.UserOffertorId);
+                    command_addQualification.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
                     command_addQualification.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
                     command_addQualification.Parameters.AddWithValue("@punctuation", chat.Qualification.QualificationNumber);
 
@@ -130,7 +130,7 @@ namespace ConnectingUsWebApp.Repositories
             {
                 IdChat = Int32.Parse(reader["id_chat"].ToString()),
                 UserRequesterId = Int32.Parse(reader["id_user_requester"].ToString()),
-                UserOfertorId = Int32.Parse(reader["id_user_ofertor"].ToString()),
+                UserOfertorId = Int32.Parse(reader["id_user_offertor"].ToString()),
                 QualificationNumber = Int32.Parse(reader["punctuation"].ToString()),
                 QualificationDate = Convert.ToDateTime(reader["punctuation"].ToString()),
 
