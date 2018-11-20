@@ -104,11 +104,12 @@ namespace ConnectingUsWebApp.Repositories
                     command_addChat.Connection = connection;
 
                     command_addChat.CommandText = "INSERT INTO chats (id_service, id_user_requester,id_user_offertor,last_message_date) " +
-                     "OUTPUT INSERTED.id_chat  VALUES (@id_service, @id_user_requester,@id_user_offertor,getdate())";
+                     "OUTPUT INSERTED.id_chat  VALUES (@id_service, @id_user_requester,@id_user_offertor,@last_message_date)";
 
                     command_addChat.Parameters.AddWithValue("@id_service", chat.Service.Id);
                     command_addChat.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
                     command_addChat.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
+                    command_addChat.Parameters.AddWithValue("@last_message_date", chat.LastMessageDate);
 
                     SqlParameter param = new SqlParameter("@id_chat", SqlDbType.Int, 4)
                     {
