@@ -68,12 +68,13 @@ namespace ConnectingUsWebApp.Repositories
                     command_addMeesage.Connection = connection;
 
                     command_addMeesage.CommandText = "INSERT INTO messages (id_chat, message,message_date,id_sender_user,id_receiver_user) " +
-                     "OUTPUT INSERTED.id_message   VALUES (@id_chat,@text,getdate(), @id_user_sender,@id_user_receiver)";
+                     "OUTPUT INSERTED.id_message   VALUES (@id_chat,@text,@message_date, @id_user_sender,@id_user_receiver)";
 
                     command_addMeesage.Parameters.AddWithValue("@id_chat", message.IdChat);
                     command_addMeesage.Parameters.AddWithValue("@text", message.Text);
                     command_addMeesage.Parameters.AddWithValue("@id_user_sender", message.UserSenderId);
                     command_addMeesage.Parameters.AddWithValue("@id_user_receiver", message.UserReceiverId);
+                    command_addMeesage.Parameters.AddWithValue("@message_date", message.Date);
 
                     SqlParameter param = new SqlParameter("@id_message", SqlDbType.Int, 4)
                     {
@@ -84,7 +85,7 @@ namespace ConnectingUsWebApp.Repositories
                     int messageId = (int)command_addMeesage.ExecuteScalar();
                     message.Id = messageId;
 
-                    command_addMeesage.CommandText = "UPDATE chats SET last_message_date = getdate() " +
+                    command_addMeesage.CommandText = "UPDATE chats SET last_message_date = @message_date " +
                      "WHERE id_chat= @id_chat";
 
                     command_addMeesage.ExecuteNonQuery();
@@ -115,8 +116,8 @@ namespace ConnectingUsWebApp.Repositories
                 Date = Convert.ToDateTime(reader["message_date"].ToString()),
                 IdChat = Int32.Parse(reader["id_chat"].ToString()),
                 Id = Int32.Parse(reader["id_message"].ToString()),
-                UserSenderNickname = usersRepository.GetUser(Int32.Parse(reader["id_receiver_user"].ToString())).Account.Nickname,
-                UserReceiverNickname = usersRepository.GetUser(Int32.Parse(reader["id_sender_user"].ToString())).Account.Nickname,
+                UserReceiverNickname = usersRepository.GetUser(Int32.Parse(reader["id_receiver_user"].ToString())).Account.Nickname,
+                UserSenderNickname = usersRepository.GetUser(Int32.Parse(reader["id_sender_user"].ToString())).Account.Nickname,
 
             };
 
