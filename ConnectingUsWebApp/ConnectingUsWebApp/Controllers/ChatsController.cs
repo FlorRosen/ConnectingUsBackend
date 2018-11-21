@@ -1,4 +1,5 @@
 ﻿using ConnectingUsWebApp.Models;
+using ConnectingUsWebApp.Models.ViewModels;
 using ConnectingUsWebApp.Repositories;
 using ConnectingUsWebApp.Services;
 using System;
@@ -102,6 +103,14 @@ namespace ConnectingUsWebApp.Controllers
                 } 
         } */
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to update chat");
+        }
+
+        //get chat by id
+        [Route("api/chats/")]
+        [HttpGet]
+        public int? GetChatByUser(GetChatViewModel getChatViewModel)
+        {
+            return chatsRepo.GetChatByUser(getChatViewModel); ;
         }
 
         //get chat by id

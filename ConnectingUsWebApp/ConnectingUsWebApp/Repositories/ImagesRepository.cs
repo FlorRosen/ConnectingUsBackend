@@ -46,7 +46,7 @@ namespace ConnectingUsWebApp.Repositories
             return image;
         }
 
-        public bool AddImage(Image image)
+        public bool AddImage(String imageString, int idService)
         {
             var result = false;
             
@@ -63,8 +63,8 @@ namespace ConnectingUsWebApp.Repositories
                     command_addImage.CommandText = "INSERT INTO services_images (id_service, image) " +
                      "VALUES (@id_service,@image)";
 
-                    command_addImage.Parameters.AddWithValue("@id_service",image.IdService);
-                    command_addImage.Parameters.AddWithValue("@image", image.ImageString);
+                    command_addImage.Parameters.AddWithValue("@id_service", idService);
+                    command_addImage.Parameters.AddWithValue("@image", imageString ?? Convert.DBNull);
 
                     command_addImage.ExecuteNonQuery();
                     connection.Close();
@@ -79,7 +79,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
 
-        public bool UpdateImage(Image image)
+        public bool UpdateImage(String imageString, int idService)
         {
             var result = false;
 
@@ -96,8 +96,8 @@ namespace ConnectingUsWebApp.Repositories
                     command_addImage.CommandText = "UPDATE services_images SET image = @image " +
                         "WHERE id_service = @id_service";
 
-                    command_addImage.Parameters.AddWithValue("@id_service", image.IdService);
-                    command_addImage.Parameters.AddWithValue("@image", image.ImageString);
+                    command_addImage.Parameters.AddWithValue("@id_service", idService);
+                    command_addImage.Parameters.AddWithValue("@image", imageString ?? Convert.DBNull);
 
                     command_addImage.ExecuteNonQuery();
                     connection.Close();

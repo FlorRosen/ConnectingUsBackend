@@ -89,7 +89,11 @@ namespace ConnectingUsWebApp.Repositories
             return chat;
         }
 
-
+        public int? GetChatByUser(GetChatViewModel getChatViewModel)
+        {
+          
+            return null;
+        }
         //Create new chat
         public Chat AddChat(Chat chat)
         {
