@@ -106,14 +106,21 @@ namespace ConnectingUsWebApp.Controllers
         }
 
         //get chat by id
-        [Route("api/chats/")]
-        [HttpGet]
+        [Route("api/chats/chat")]
+        [HttpPost]
         public int? GetChatByUser(GetChatViewModel getChatViewModel)
         {
-            return chatsRepo.GetChatByUser(getChatViewModel); ;
+            int? result = null;
+            Chat chat = chatsRepo.GetChatByUser(getChatViewModel); ;
+            if (chat.Id != 0)
+            {
+                result = chat.Id;
+            }
+            return result;
         }
 
         //get chat by id
+
         [Route("api/chats/chat")]
         [HttpGet]
         public Chat GetChat(int idChat)
