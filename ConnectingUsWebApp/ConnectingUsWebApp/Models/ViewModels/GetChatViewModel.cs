@@ -4,8 +4,8 @@ namespace ConnectingUsWebApp.Models.ViewModels
 {
     public class GetChatViewModel
     {
-        public int? IdUser { get; set; }
         public int? IdService { get; set; }
-       
+        public int? IdUser { get; set; }
+
     }
 }

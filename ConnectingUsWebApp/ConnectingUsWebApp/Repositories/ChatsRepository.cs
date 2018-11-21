@@ -89,11 +89,38 @@ namespace ConnectingUsWebApp.Repositories
             return chat;
         }
 
-        public int? GetChatByUser(GetChatViewModel getChatViewModel)
+
+
+        public Chat GetChatByUser(GetChatViewModel getChatViewModel)
         {
-          
-            return null;
+            Chat chat = new Chat();
+            try
+            {
+
+                String query = "select * from chats " +
+                    "where id_service = @id_service and id_user_requester = @id_user_requester and active = 1";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_service", getChatViewModel.IdService);
+                command.Parameters.AddWithValue("@id_user_requester", getChatViewModel.IdUser);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        chat = MapChatFromDB(reader);
+                    }
+                }
+
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return chat;
         }
+
         //Create new chat
         public Chat AddChat(Chat chat)
         {
