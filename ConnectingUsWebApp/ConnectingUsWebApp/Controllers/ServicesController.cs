@@ -45,31 +45,7 @@ namespace ConnectingUsWebApp.Controllers
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create service");
         }
 
-        [Route("api/services/Images")]
-        [HttpPost]
-        public IHttpActionResult SaveImagesPost([FromBody] Image image)
-        {
-            var ok = imagesRepo.AddImage(image);
 
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.InternalServerError, "Fail save image");
-        }
-
-
-        [Route("api/services/Images")]
-        [HttpPut]
-        public IHttpActionResult UpdateImages([FromBody] Image image)
-        {
-            var ok = imagesRepo.UpdateImage(image);
-
-            return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.InternalServerError, "Fail save image");
-        }
-
-        [Route("api/services/Images")]
-        [HttpGet]
-        public Image GetImage(int idService)
-        {
-             return imagesRepo.GetImage(idService);
-        }
 
         //PUT api/services
         [HttpPut]

@@ -104,7 +104,7 @@ namespace ConnectingUsWebApp.Repositories
         
         public bool AddService(Service service)
         {
-           
+            ImagesRepository imagesRepository = new ImagesRepository();
             var result = false;
             try {
                 using (SqlCommand command_addService = new SqlCommand())
@@ -131,12 +131,9 @@ namespace ConnectingUsWebApp.Repositories
 
                     int Id = (int)command_addService.ExecuteScalar();
 
-                    //command_addService.ExecuteNonQuery();
                     connection.Close();
-                    /*    if (service.Images != null)
-                        {
-                            AddImages(service.Images, service.Id);
-                        }*/
+
+                    imagesRepository.AddImage(service.Image, Id);
                     result = true;
                 }
 
@@ -151,7 +148,7 @@ namespace ConnectingUsWebApp.Repositories
         //Update the service in the Database
         public bool UpdateService(Service service)
         {
-            
+            ImagesRepository imagesRepository = new ImagesRepository();
             var result = false;
             try
             {
@@ -183,6 +180,7 @@ namespace ConnectingUsWebApp.Repositories
 
                     command_UpdateService.ExecuteNonQuery();
                     connection.Close();
+                    imagesRepository.UpdateImage(service.Image, service.Id);
                     result = true;
 
                 }
