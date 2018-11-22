@@ -229,11 +229,14 @@ namespace ConnectingUsWebApp.Repositories
                     }
                     command_UpdateChat.ExecuteNonQuery();
                     connection.Close();
+                    result = true;
+                    //if the qualifications is canceled|
+                    if (chat.Qualification != null)
+                    {
+                        QualificationsRepository qualificationsRepository = new QualificationsRepository();
 
-                    QualificationsRepository qualificationsRepository = new QualificationsRepository();
-
-                    result = qualificationsRepository.AddQualification(chat);
-
+                        result = qualificationsRepository.AddQualification(chat);
+                    }
                 }
             }
             finally
