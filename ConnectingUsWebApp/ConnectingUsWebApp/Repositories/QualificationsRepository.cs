@@ -54,36 +54,6 @@ namespace ConnectingUsWebApp.Repositories
             return qualifications;
         }
 
-        //Get the average qualifications
-        public decimal GetAvgQualifications(int idUser)
-        {
-            decimal qualification = 0;
-            try
-            {
-
-                String query = "select (convert(decimal(9, 2), avg(cast(punctuation as float)))) from qualifications where id_user_offertor = @id_user " +
-                "GROUP BY id_user_offertor";
-                command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_user", idUser);
-
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        qualification = reader.GetDecimal(0);
-                    }
-                }
-                connection.Close();
-
-            }
-       
-            finally
-            {
-                connection.Close();
-            }
-            return qualification;
-            }
 
         //Add message to the chat. Sends the notification by mail
         public bool AddQualification(Chat chat)

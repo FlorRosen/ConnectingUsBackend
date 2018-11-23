@@ -68,14 +68,12 @@ namespace ConnectingUsWebApp.Repositories
 
         public City MapCityFromDB(SqlDataReader reader)
         {
-            CountriesRepository countriesRepo = new CountriesRepository();
-
             var city = new City
             {
                 Id = Int32.Parse(reader["id_city"].ToString()),
                 Name = reader["name"].ToString(),
-                Latitude = reader["latitude"].ToString(),
-                Longitude = reader["longitude"].ToString()
+                //Latitude = reader["latitude"].ToString(),
+                //Longitude = reader["longitude"].ToString()
                
             };
 

@@ -29,7 +29,10 @@ namespace ConnectingUsWebApp.Repositories
             connection.Open();
             using(SqlDataReader reader = command.ExecuteReader()){
                 while(reader.Read()){
-                    country = MapCountryFromDB(reader);
+                    country.Id = MapCountryFromDB(reader).Id;
+                    country.Name = MapCountryFromDB(reader).Name;
+                    country.CountryCode = MapCountryFromDB(reader).CountryCode;
+                    country.Nationality = MapCountryFromDB(reader).Nationality;
 
                 }
             }

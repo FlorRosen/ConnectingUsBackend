@@ -40,5 +40,16 @@ namespace ConnectingUsWebApp.Controllers
   
             return user != null ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Couln't modify the user data");
         }
+
+
+        //Public Methods
+        [HttpGet]
+        [Route("api/users/profile")]
+        public IHttpActionResult GetUserReputation(int id)
+        {
+            var user = usersRepo.GetUserReputation(id);
+
+            return user == null ? NotFound() : (IHttpActionResult)Ok(user);
+        }
     }
 }
