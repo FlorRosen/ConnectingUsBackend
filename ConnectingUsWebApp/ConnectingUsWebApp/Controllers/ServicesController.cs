@@ -30,11 +30,12 @@ namespace ConnectingUsWebApp.Controllers
         //Post and returns all services with the filters selected         
         [Route("api/services/Search")]
         [HttpPost]
-        public List<Service> Search([FromBody] SearchViewModel search)
+        public SearchResultViewModel Search([FromBody] SearchViewModel search)
         {
             return servicesRepo.Search(search);
         }
-        
+
+
         //POST api/services
         //add service into DB
         [HttpPost]
