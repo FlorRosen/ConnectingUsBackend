@@ -69,7 +69,7 @@ namespace ConnectingUsWebApp.Repositories
                 command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
-                command.Parameters.AddWithValue("@numberOfPage", ((search.NumberOfPage) - 1) * 10 ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@numberOfPage", ((search.NumberOfPage) - 1) ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@numberOfRows", search.NumberOfRows ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
                 connection.Open();
