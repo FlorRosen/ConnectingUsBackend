@@ -182,15 +182,16 @@ namespace ConnectingUsWebApp.Repositories
                 connection.Open();
 
                 command_deleteChat.Connection = connection;
-                //delete chat
-                command_deleteChat.CommandText = "delete from chats where id_chat = @id_chat";
-                command_deleteChat.Parameters.AddWithValue("@id_chat",idChat);
-                command_deleteChat.ExecuteNonQuery();
 
                 //delete messages
                 command_deleteChat.CommandText = "delete from messages where id_chat = @id_chat";
                 command_deleteChat.Parameters.AddWithValue("@id_chat", idChat);
                 command_deleteChat.ExecuteNonQuery();
+                //delete chat
+                command_deleteChat.CommandText = "delete from chats where id_chat = @id_chat";
+                command_deleteChat.Parameters.AddWithValue("@id_chat",idChat);
+                command_deleteChat.ExecuteNonQuery();
+
 
                 connection.Close();
                 result = true;

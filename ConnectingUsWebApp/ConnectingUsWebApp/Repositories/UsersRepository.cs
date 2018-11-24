@@ -211,12 +211,51 @@ namespace ConnectingUsWebApp.Repositories
             return user;
         }
 
+        public User GetUserReputation(int id)
+        {
+            var user = new User();
+
+            command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = "select * from users where id_user = @id_user"
+            };
+            command.Parameters.AddWithValue("@id_user", id);
+            connection.Open();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    
+                    user.Id = MapUserFromDB(reader).Id;
+                    user.FirstName = MapUserFromDB(reader).FirstName;
+                    user.LastName = MapUserFromDB(reader).LastName;
+                    user.Gender = MapUserFromDB(reader).Gender;
+                    user.Reputation = MapUserFromDB(reader).Reputation;
+                    user.CityOfResidence = MapUserFromDB(reader).CityOfResidence;
+                    user.CityOfResidence.Id = null;
+ 
+                    user.CountryOfResidence = MapUserFromDB(reader).CountryOfResidence;
+                    user.CountryOfResidence.Id = null;
+                    user.Account = MapUserFromDB(reader).Account;
+                    user.Account.Mail = null;
+                    user.Account.Password = null;
+                    user.Account.Id = null;
+
+                }
+            }
+
+            connection.Close();
+            return user;
+        }
+
+
         public static User MapUserFromDB(SqlDataReader reader)
         {
             CountriesRepository countriesRepo = new CountriesRepository();
             CitiesRepository citiesRepo = new CitiesRepository();
             LoginRepository loginRepo = new LoginRepository();
-            QualificationsRepository qualyrepo = new QualificationsRepository();
+            ReputationsRepository reputationRepo = new ReputationsRepository();
 
             User user = new User
             {
@@ -233,7 +272,8 @@ namespace ConnectingUsWebApp.Repositories
                 CountryOfBirth = countriesRepo.GetCountry(Int32.Parse(reader["id_birth_country"].ToString())),
                 CityOfResidence = citiesRepo.GetCity(Int32.Parse(reader["id_city_residence"].ToString()), Int32.Parse(reader["id_country"].ToString())),
                 Account = loginRepo.GetAccount(Int32.Parse(reader["id_user"].ToString())),
-                
+                Reputation = reputationRepo.GetReputation(Int32.Parse(reader["id_user"].ToString())),
+
             };
 
             return user;
