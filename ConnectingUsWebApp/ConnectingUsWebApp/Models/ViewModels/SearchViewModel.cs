@@ -11,5 +11,7 @@ namespace ConnectingUsWebApp.Models.ViewModels
         public int? IdCity { get; set; }
         public int? IdUser { get; set; }
         public bool? Active { get; set; }
+        public int? NumberOfPage { get; set; }
+        public int? NumberOfRows { get; set; }
     }
 }

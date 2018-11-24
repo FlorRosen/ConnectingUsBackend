@@ -53,13 +53,15 @@ namespace ConnectingUsWebApp.Repositories
 
         //Public Methods
         //This method can bring all services, by user id or serivce id or category that are active
-              public List<Service> Search(SearchViewModel search)
+              public SearchResultViewModel Search(SearchViewModel search)
         {
+            SearchResultViewModel searchResultViewModel = new SearchResultViewModel();
             List<Service> services = new List<Service>();
 
             try
             {
-                String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
+                //brings a certain amount of services
+                String query = "EXEC sp_SearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active,@numberOfPage,@numberOfRows ";
 
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
@@ -67,6 +69,8 @@ namespace ConnectingUsWebApp.Repositories
                 command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@numberOfPage", ((search.NumberOfPage) - 1) ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@numberOfRows", search.NumberOfRows ?? Convert.DBNull);
                 command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
                 connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -77,16 +81,32 @@ namespace ConnectingUsWebApp.Repositories
                         services.Add(service);
                     }
                 }
-                connection.Close();
+                searchResultViewModel.Services = services;
+
+
+                //brings the total amount of services with the filters
+                query = "EXEC sp_CountSearchServices @id_user,@id_country,@id_city,@text,@id_categories,@active";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@active", search.Active ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@text", search.Text ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_user", search.IdUser ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_country", search.IdCountry ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_city", search.IdCity ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@numberOfPage", ((search.NumberOfPage) - 1) * 10 ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@numberOfRows", search.NumberOfRows ?? Convert.DBNull);
+                command.Parameters.AddWithValue("@id_categories", getCategoriesId(search.Categories) ?? Convert.DBNull);
+                
+                int result = (int)command.ExecuteScalar();
+                searchResultViewModel.TotalServices = result;
+                
             }
             finally
             {
                 connection.Close();
 
             }
-            return services;
+            return searchResultViewModel;
         }
-        
         //Returns a string with all the categories id concatenated
         private String getCategoriesId(List<Category> categories){
             List<int> categoriesId = null;
