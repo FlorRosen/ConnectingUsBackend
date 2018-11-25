@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data;
 using ConnectingUsWebApp.Models;
 using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace ConnectingUsWebApp.Repositories
 {
@@ -107,13 +108,17 @@ namespace ConnectingUsWebApp.Repositories
 
             ChatsRepository chatsRepository = new ChatsRepository();
             UsersRepository usersRepository = new UsersRepository();
-
-            Message message = new Message
+            var settings = new JsonSerializerSettings {
+                DateFormatString = "yyyy-MM-ddTH:mm:ss.fffZ"
+                
+            };
+           Message message = new Message
             {
                 Text = reader["message"].ToString(),
                 UserReceiverId = Int32.Parse(reader["id_receiver_user"].ToString()),
                 UserSenderId = Int32.Parse(reader["id_sender_user"].ToString()),
-                Date = Convert.ToDateTime(reader["message_date"].ToString()),
+               
+                Date = JsonConvert.SerializeObject(reader["message_date"], settings).Replace("\"", ""),
                 IdChat = Int32.Parse(reader["id_chat"].ToString()),
                 Id = Int32.Parse(reader["id_message"].ToString()),
                 UserReceiverNickname = usersRepository.GetUser(Int32.Parse(reader["id_receiver_user"].ToString())).Account.Nickname,
