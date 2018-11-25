@@ -85,7 +85,8 @@ namespace ConnectingUsWebApp.Repositories
            
         }
 
-        public bool UpdateNotification(int idNotif)
+        //Updates all notifications for a user
+        public bool UpdateNotificationByUserId(int userId)
         {
             var result = false;
 
@@ -98,8 +99,8 @@ namespace ConnectingUsWebApp.Repositories
                     command_UpdateNotif.Connection = connection;
 
                     command_UpdateNotif.CommandText = "UPDATE notifications SET isRead = @isRead " +
-                     "WHERE id_notification = @id_notification";
-                    command_UpdateNotif.Parameters.AddWithValue("@id_notification", idNotif);
+                     "WHERE id_user_notify = @id_user_notify";
+                    command_UpdateNotif.Parameters.AddWithValue("@id_user_notify", userId);
                     command_UpdateNotif.Parameters.AddWithValue("@isRead", 1);
 
                     command_UpdateNotif.ExecuteNonQuery();
