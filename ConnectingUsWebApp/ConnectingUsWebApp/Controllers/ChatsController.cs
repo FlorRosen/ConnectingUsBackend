@@ -1,4 +1,5 @@
-﻿using ConnectingUsWebApp.Models;
+﻿using ConnectingUsWebApp.Enums;
+using ConnectingUsWebApp.Models;
 using ConnectingUsWebApp.Models.ViewModels;
 using ConnectingUsWebApp.Repositories;
 using ConnectingUsWebApp.Services;
@@ -6,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Mail;
 using System.Web.Http;
 
 namespace ConnectingUsWebApp.Controllers
@@ -15,9 +14,10 @@ namespace ConnectingUsWebApp.Controllers
     public class ChatsController : ApiController
     {
         private static readonly ChatsRepository chatsRepo = new ChatsRepository();
+        private static readonly NotificationsRepository notifRepo = new NotificationsRepository();
 
         //get chats when idUser is the provider of a service
-                [HttpGet]
+        [HttpGet]
         [Route("api/chats/offertor")]
         public IEnumerable<Chat> GetChatsOffertor(int idUser)
         {
@@ -51,7 +51,12 @@ namespace ConnectingUsWebApp.Controllers
         [HttpPost]
         public Message Post([FromBody] Message message)
         {
-           // var ok = chatsRepo.AddMessage(message);
+            var ok = chatsRepo.AddMessage(message);
+
+            if (ok != null){
+                //TODO: Change notification type
+                notifRepo.AddNotification(1, message.UserSenderId, message.UserReceiverId, message.IdChat);
+            }
 
             /*if (ok) {
 
@@ -75,14 +80,21 @@ namespace ConnectingUsWebApp.Controllers
                 }
             }*/
 
-            return chatsRepo.AddMessage(message);
+            return ok;
         }
 
-        //close the chat
+        //Close the chat
         [HttpPut]
         public IHttpActionResult Put([FromBody] Chat chat)
         {
             var ok = chatsRepo.UpdateChat(chat);
+
+            if (ok)
+            {
+                //TODO: Change notification type
+                notifRepo.AddNotification(2, chat.UserRequesterId, chat.UserOffertorId, chat.Id);
+            }
+
             /*if (ok)
             {
                 UsersRepository usersRepository = new UsersRepository();
