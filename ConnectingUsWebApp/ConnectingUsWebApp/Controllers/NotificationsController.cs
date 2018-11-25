@@ -23,8 +23,8 @@ namespace ConnectingUsWebApp.Controllers
         [HttpGet]
         public IEnumerable<Notification> GetNotificationsForUser(int idUser)
         {
-            List<Notification> chats = notifRepo.GetNotificationsForUser(idUser);
-            return chats;
+            List<Notification> notifications = notifRepo.GetNotificationsForUser(idUser);
+            return notifications;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ConnectingUsWebApp.Repositories
             try
             {
                 String query = "select * " +
-                               "from notifications where id_user_notify = @id_user_notify and isRead = 0";
+                    "from notifications where id_user_notify = @id_user_notify and isRead = 0 ";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_user_notify", idUser);
 

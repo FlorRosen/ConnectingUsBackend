@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Mail;
 using System.Web.Http;
 
 namespace ConnectingUsWebApp.Controllers
@@ -56,7 +54,7 @@ namespace ConnectingUsWebApp.Controllers
             var ok = chatsRepo.AddMessage(message);
 
             if (ok != null){
-                //TODO: Cambiar el notification type
+                //TODO: Change notification type
                 notifRepo.AddNotification(1, message.UserSenderId, message.UserReceiverId, message.IdChat);
             }
 
@@ -82,7 +80,7 @@ namespace ConnectingUsWebApp.Controllers
                 }
             }*/
 
-            return chatsRepo.AddMessage(message);
+            return ok;
         }
 
         //Close the chat
@@ -93,7 +91,7 @@ namespace ConnectingUsWebApp.Controllers
 
             if (ok)
             {
-                //TODO: Cambiar el notification type
+                //TODO: Change notification type
                 notifRepo.AddNotification(2, chat.UserRequesterId, chat.UserOffertorId, chat.Id);
             }
 
