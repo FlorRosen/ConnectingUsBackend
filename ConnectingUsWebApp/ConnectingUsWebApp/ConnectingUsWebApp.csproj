@@ -130,6 +130,7 @@
     <Compile Include="Repositories\NotificationsRepository.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Models\ViewModels\UpdateNotificationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

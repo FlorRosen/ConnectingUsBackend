@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 using ConnectingUsWebApp.Models;
+using ConnectingUsWebApp.Models.ViewModels;
 using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
@@ -13,9 +14,9 @@ namespace ConnectingUsWebApp.Controllers
 
         //Set notification as read
         [HttpPut]
-        public IHttpActionResult Put([FromBody] Notification notif)
+        public IHttpActionResult Put([FromBody] UpdateNotificationViewModel notifViewModel)
         {
-            var ok = notifRepo.UpdateNotification(notif.Id);
+            var ok = notifRepo.UpdateNotificationByUserId(notifViewModel.IdUser);
            
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to update chat");
         }
