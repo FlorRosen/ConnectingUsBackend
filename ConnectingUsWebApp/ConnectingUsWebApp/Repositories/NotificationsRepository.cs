@@ -23,8 +23,12 @@ namespace ConnectingUsWebApp.Repositories
 
             try
             {
-                String query = "select * " +
-                    "from notifications where id_user_notify = @id_user_notify and isRead = 0 ";
+                String query = "select noti.*, sbu.title, ac.nickname " +
+                    "from notifications noti " +
+                    "left join Chats chat on noti.id_chat = chat.id_chat " +
+                    "left join services_by_users sbu on sbu.id_service = chat.id_service " +
+                    "left join accounts ac on ac.id_user = chat.id_user_requester " +
+                    "where id_user_notify = @id_user_notify and isRead = 0 ";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_user_notify", idUser);
 
@@ -115,15 +119,16 @@ namespace ConnectingUsWebApp.Repositories
         //Private Methods
         private Notification MapNotificationFromBackend(SqlDataReader reader)
         {
-            UsersRepository usersRepository = new UsersRepository();
+            UsersRepository usersRepo = new UsersRepository();
+            ChatsRepository chatsRepo = new ChatsRepository();
 
             Notification notif = new Notification
             {
                 Id = Int32.Parse(reader["id_notification"].ToString()),
-                UserSender = usersRepository.GetUser(Int32.Parse(reader["id_user_sender"].ToString())),
+                NicknameUserSender = reader["nickname"].ToString(),
                 IdUserNotify = Int32.Parse(reader["id_user_notify"].ToString()),
                 IdType = Int32.Parse(reader["id_type"].ToString()),
-                IdChat = Int32.Parse(reader["id_chat"].ToString())
+                ServiceTitle = reader["title"].ToString()
             };
 
             return notif;
