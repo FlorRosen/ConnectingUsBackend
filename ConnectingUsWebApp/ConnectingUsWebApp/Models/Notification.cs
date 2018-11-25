@@ -5,10 +5,10 @@ namespace ConnectingUsWebApp.Models
     {
        
         public int Id { get; set; }
-        public User UserSender { get; set; }
+        public string NicknameUserSender { get; set; }
         public int IdUserNotify { get; set; }
         public int IdType { get; set; }
-        public int IdChat { get; set; }
+        public string ServiceTitle { get; set; }
         public bool IsRead { get; set; }
 
     }
