@@ -16,7 +16,7 @@ namespace ConnectingUsWebApp.Models
         public bool Active { get; set; }
         public List<Message> Messages { get; set; }
         public Qualification Qualification { get; set; }
-        public DateTime LastMessageDate { get; set; }
+        public String LastMessageDate { get; set; }
 
     }
 }

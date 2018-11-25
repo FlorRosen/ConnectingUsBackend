@@ -8,6 +8,7 @@ using System.Data;
 using ConnectingUsWebApp.Models;
 using System.Web.Http;
 using ConnectingUsWebApp.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace ConnectingUsWebApp.Repositories
 {
@@ -69,12 +70,13 @@ namespace ConnectingUsWebApp.Repositories
                     command_addQualification.Connection = connection;
 
                     command_addQualification.CommandText = "INSERT INTO qualifications (id_chat, id_user_requester,id_user_offertor,punctuation,punctuation_date) " +
-                     "VALUES (@id_chat, @id_user_requester,@id_user_offertor,@punctuation,getdate())";
+                     "VALUES (@id_chat, @id_user_requester,@id_user_offertor,@punctuation,@punctuation_date)";
 
                     command_addQualification.Parameters.AddWithValue("@id_chat", chat.Id);
                     command_addQualification.Parameters.AddWithValue("@id_user_offertor", chat.UserOffertorId);
                     command_addQualification.Parameters.AddWithValue("@id_user_requester", chat.UserRequesterId);
                     command_addQualification.Parameters.AddWithValue("@punctuation", chat.Qualification.QualificationNumber);
+                    command_addQualification.Parameters.AddWithValue("@punctuation_date", DateTime.Now);
 
 
                     command_addQualification.ExecuteNonQuery();
@@ -95,14 +97,18 @@ namespace ConnectingUsWebApp.Repositories
         //Private Methods
         private Qualification MapQualificationsFromDB(SqlDataReader reader)
         {
+            var settings = new JsonSerializerSettings
+            {
+                DateFormatString = "yyyy-MM-ddTH:mm:ss.fffZ"
 
+            };
             Qualification qualification = new Qualification
             {
                 IdChat = Int32.Parse(reader["id_chat"].ToString()),
                 UserRequesterId = Int32.Parse(reader["id_user_requester"].ToString()),
                 UserOfertorId = Int32.Parse(reader["id_user_offertor"].ToString()),
                 QualificationNumber = Int32.Parse(reader["punctuation"].ToString()),
-                QualificationDate = Convert.ToDateTime(reader["punctuation"].ToString()),
+                QualificationDate = JsonConvert.SerializeObject(reader["punctuation_date"], settings).Replace("\"", ""),
 
             };
 

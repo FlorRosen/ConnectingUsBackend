@@ -8,6 +8,7 @@ using System.Data;
 using ConnectingUsWebApp.Models;
 using System.Web.Http;
 using ConnectingUsWebApp.Models.ViewModels;
+using Newtonsoft.Json;
 
 namespace ConnectingUsWebApp.Repositories
 {
@@ -254,6 +255,12 @@ namespace ConnectingUsWebApp.Repositories
             ServicesRepository servicesRepository = new ServicesRepository();
             MessagesRepository messagesRepository = new MessagesRepository();
 
+            var settings = new JsonSerializerSettings
+            {
+                DateFormatString = "yyyy-MM-ddTH:mm:ss.fffZ"
+
+            };
+
             Chat chat = new Chat
             {
                 Id = Int32.Parse(reader["id_chat"].ToString()),
@@ -264,7 +271,7 @@ namespace ConnectingUsWebApp.Repositories
                 Messages = messagesRepository.GetMessages(Int32.Parse(reader["id_chat"].ToString())),
                 UserRequesterNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_requester"].ToString())).Account.Nickname,
                 UserOffertorNickname = usersRepository.GetUser(Int32.Parse(reader["id_user_offertor"].ToString())).Account.Nickname,
-                LastMessageDate = Convert.ToDateTime(reader["last_message_date"].ToString()),
+                LastMessageDate = JsonConvert.SerializeObject(reader["last_message_date"], settings).Replace("\"", ""),
             };
 
             return chat;
