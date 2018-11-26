@@ -236,8 +236,11 @@ namespace ConnectingUsWebApp.Repositories
                     if (chat.Qualification != null)
                     {
                         QualificationsRepository qualificationsRepository = new QualificationsRepository();
+                        NotificationsRepository notifRepo = new NotificationsRepository();
 
                         result = qualificationsRepository.AddQualification(chat);
+                        notifRepo.AddNotification(2, chat.UserRequesterId, chat.UserOffertorId, chat.Id);
+                        
                     }
                 }
             }
