@@ -109,7 +109,7 @@ namespace ConnectingUsWebApp.Repositories
             ChatsRepository chatsRepository = new ChatsRepository();
             UsersRepository usersRepository = new UsersRepository();
             var settings = new JsonSerializerSettings {
-                DateFormatString = "yyyy-MM-ddTH:mm:ss.fffZ"
+                DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ"
                 
             };
            Message message = new Message
