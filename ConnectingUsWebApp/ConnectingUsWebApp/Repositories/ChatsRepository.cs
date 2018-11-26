@@ -257,7 +257,7 @@ namespace ConnectingUsWebApp.Repositories
 
             var settings = new JsonSerializerSettings
             {
-                DateFormatString = "yyyy-MM-ddTH:mm:ss.fffZ"
+                DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ"
 
             };
 
