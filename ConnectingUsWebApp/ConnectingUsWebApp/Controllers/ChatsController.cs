@@ -89,11 +89,6 @@ namespace ConnectingUsWebApp.Controllers
         {
             var ok = chatsRepo.UpdateChat(chat);
 
-            if (ok)
-            {
-                //TODO: Change notification type
-                notifRepo.AddNotification(2, chat.UserRequesterId, chat.UserOffertorId, chat.Id);
-            }
 
             /*if (ok)
             {
