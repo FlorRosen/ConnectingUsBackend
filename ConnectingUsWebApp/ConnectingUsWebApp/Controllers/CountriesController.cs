@@ -20,7 +20,7 @@ namespace ConnectingUsWebApp.Controllers
 
 
         //Public Methods
-        //Returns the countries where servieces are onda, offer
+        //Returns the countries where servieces are offer
         [Route("api/countries/Map")]
         [HttpGet]
         public IEnumerable<Country> GetCountriesOfServices()
