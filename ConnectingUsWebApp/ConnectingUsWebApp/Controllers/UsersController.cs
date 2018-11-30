@@ -11,7 +11,6 @@ namespace ConnectingUsWebApp.Controllers
     {
         static readonly UsersRepository usersRepo = new UsersRepository();
 
-
         [HttpGet]
         public IHttpActionResult GetUser(int id)
         {
@@ -25,11 +24,8 @@ namespace ConnectingUsWebApp.Controllers
         //public IHttpActionResult Post([FromBody] User user)
         public User Post([FromBody] User user)
         {
-           
-           // user = usersRepo.AddUser(user);
-
             return usersRepo.AddUser(user);
-            // return user != null ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "The email or nickname already exist");
+          
         }
 
         //POST api/users

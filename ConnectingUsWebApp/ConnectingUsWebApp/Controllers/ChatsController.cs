@@ -17,7 +17,7 @@ namespace ConnectingUsWebApp.Controllers
         private static readonly ChatsRepository chatsRepo = new ChatsRepository();
         private static readonly NotificationsRepository notifRepo = new NotificationsRepository();
 
-        //get chats when idUser is the provider of a service
+        //Get chats when idUser is the provider of a service
         [HttpGet]
         [Route("api/chats/offertor")]
         public IEnumerable<Chat> GetChatsOffertor(int idUser)
@@ -26,7 +26,7 @@ namespace ConnectingUsWebApp.Controllers
             return chats;
         }
 
-        //get chats when idUser is the requester of a service
+        //Get chats when idUser is the requester of a service
         [HttpGet]
         [Route("api/chats/requester")]
         public IEnumerable<Chat> GetChatsRequester(int idUser)
@@ -40,9 +40,7 @@ namespace ConnectingUsWebApp.Controllers
         [HttpPost]
         public Chat Post([FromBody] Chat chat)
         {
-            //var ok = chatsRepo.AddChat(chat);
             return chatsRepo.AddChat(chat);
-            //return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create chat");
         }
 
         
@@ -59,28 +57,6 @@ namespace ConnectingUsWebApp.Controllers
                 notifRepo.AddNotification(1, message.UserSenderId, message.UserReceiverId, message.IdChat);
             }
 
-            /*if (ok) {
-
-                ChatsRepository chatsRepository = new ChatsRepository();
-                UsersRepository usersRepository = new UsersRepository();
-
-                EmailViewModel email = new EmailViewModel();
-                email.SubjectText = "New Message";
-                email.BodyText = "send you a message for service: ";
-                email.ServiceTitle = chatsRepository.GetChat(message.IdChat).Service.Title;
-                email.UserSenderMail = usersRepository.GetUser(message.UserSenderId).Account.Mail;
-                email.UserReceiverMail = usersRepository.GetUser(message.UserReceiverId).Account.Mail;
-
-                try
-                {
-                    EmailService.SendEmailViaWebApi(email);
-                } 
-                catch(SmtpFailedRecipientException ex)
-                {
-                    throw new SmtpFailedRecipientException("Failed while sending the email");
-                }
-            }*/
-
             return ok;
         }
 
@@ -90,26 +66,6 @@ namespace ConnectingUsWebApp.Controllers
         {
             var ok = chatsRepo.UpdateChat(chat);
 
-
-            /*if (ok)
-            {
-                UsersRepository usersRepository = new UsersRepository();
-
-                EmailViewModel email = new EmailViewModel();
-                email.SubjectText = "New qualification";
-                email.BodyText = "has qualified you for service: ";
-                email.ServiceTitle = chat.Service.Title;
-                email.UserSenderMail = usersRepository.GetUser(chat.UserRequesterId).Account.Mail;
-                email.UserReceiverMail = usersRepository.GetUser(chat.UserOfertorId).Account.Mail;
-                try
-                {
-                    EmailService.SendEmailViaWebApi(email);
-                }
-                catch (SmtpFailedRecipientException ex)
-                {
-                    throw new SmtpFailedRecipientException("Failed while sending the email");
-                } 
-        } */
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to update chat");
         }
 
@@ -128,7 +84,6 @@ namespace ConnectingUsWebApp.Controllers
         }
 
         //get chat by id
-
         [Route("api/chats/chat")]
         [HttpGet]
         public Chat GetChat(int idChat)

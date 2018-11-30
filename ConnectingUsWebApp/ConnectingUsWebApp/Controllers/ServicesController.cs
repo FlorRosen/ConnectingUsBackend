@@ -35,7 +35,6 @@ namespace ConnectingUsWebApp.Controllers
             return servicesRepo.Search(search);
         }
 
-
         //POST api/services
         //add service into DB
         [HttpPost]
@@ -45,8 +44,6 @@ namespace ConnectingUsWebApp.Controllers
 
             return ok ? (IHttpActionResult)Ok() : Content(HttpStatusCode.BadRequest, "Fail to create service");
         }
-
-
 
         //PUT api/services
         [HttpPut]
