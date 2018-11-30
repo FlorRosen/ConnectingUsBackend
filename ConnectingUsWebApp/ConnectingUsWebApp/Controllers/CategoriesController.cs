@@ -5,6 +5,7 @@ using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class CategoriesController : ApiController
     {
         static readonly CategoriesRepository categoriesRepo = new CategoriesRepository();

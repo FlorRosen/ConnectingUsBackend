@@ -6,6 +6,7 @@ using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class UsersController : ApiController
     {
         static readonly UsersRepository usersRepo = new UsersRepository();

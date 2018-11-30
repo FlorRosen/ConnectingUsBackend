@@ -12,11 +12,11 @@ using ConnectingUsWebApp.Models.ViewModels;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class ServicesController : ApiController
     {
         private static readonly ServicesRepository servicesRepo = new ServicesRepository();
         private static readonly ImagesRepository imagesRepo = new ImagesRepository();
-        //[Route("api/services/{idService:int?}")]
 
         //Public Methods
         //returns all services with optional parameters

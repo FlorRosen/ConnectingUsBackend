@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class ChatsController : ApiController
     {
         private static readonly ChatsRepository chatsRepo = new ChatsRepository();
