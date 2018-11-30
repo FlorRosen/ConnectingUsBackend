@@ -1,5 +1,9 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Web.config">
+    <Files>
+      <File FileName="ConnectingUsWebApp/Web.config" Line="11" Column="78" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
