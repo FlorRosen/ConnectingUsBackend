@@ -133,50 +133,86 @@ C:/Users/Flopi/Desktop/Proyectos/ConnectingUsBackend/ConnectingUsWebApp/Connecti
 C:/Users/Flopi/Desktop/Proyectos/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.dll
 C:/Users/Flopi/Desktop/Proyectos/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.pdb
 /Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.csprojAssemblyReference.cache
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\csc.exe
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\csc.exe.config
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\csc.rsp
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\csi.exe
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\csi.rsp
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.AppContext.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\vbc.exe
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\vbc.exe.config
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\vbc.rsp
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\VBCSCompiler.exe
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\ConnectingUsWebApp.dll.config
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\ConnectingUsWebApp.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\ConnectingUsWebApp.pdb
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\Newtonsoft.Json.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Net.Http.Formatting.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Web.Http.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Web.Http.WebHost.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\Newtonsoft.Json.xml
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Net.Http.Formatting.xml
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Web.Http.xml
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\System.Web.Http.WebHost.xml
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\es\System.Net.Http.Formatting.resources.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\es\System.Web.Http.resources.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\bin\es\System.Web.Http.WebHost.resources.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.csproj.CoreCompileInputs.cache
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.csproj.CopyComplete
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.dll
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.pdb
-C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.csprojAssemblyReference.cache
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csc.exe
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csc.exe.config
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csc.rsp
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csi.exe
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csi.rsp
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CodeAnalysis.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.CSharp.Core.targets
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.VisualBasic.Core.targets
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.AppContext.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Collections.Immutable.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Diagnostics.StackTrace.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.IO.FileSystem.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.IO.FileSystem.Primitives.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Reflection.Metadata.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/vbc.exe
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/vbc.exe.config
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/vbc.rsp
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/VBCSCompiler.exe
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/VBCSCompiler.exe.config
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/ConnectingUsWebApp.dll.config
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/ConnectingUsWebApp.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/ConnectingUsWebApp.pdb
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Newtonsoft.Json.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Net.Http.Formatting.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Web.Http.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Web.Http.WebHost.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Newtonsoft.Json.xml
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Net.Http.Formatting.xml
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Web.Http.xml
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.Web.Http.WebHost.xml
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/es/System.Net.Http.Formatting.resources.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/es/System.Web.Http.resources.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/es/System.Web.Http.WebHost.resources.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.csproj.CoreCompileInputs.cache
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.csproj.CopyComplete
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.dll
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.pdb
+C:/Users/Damian/Desktop/Facultad/ORT/3ro 2da/Connecting-Us/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/obj/Debug/ConnectingUsWebApp.csprojAssemblyReference.cache
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/csi.exe.config
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.Managed.Core.targets
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/Microsoft.Win32.Primitives.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Console.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Diagnostics.DiagnosticSource.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Diagnostics.FileVersionInfo.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Globalization.Calendars.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.IO.Compression.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.IO.Compression.ZipFile.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Net.Http.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Net.Sockets.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Runtime.InteropServices.RuntimeInformation.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Security.Cryptography.Algorithms.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Security.Cryptography.Encoding.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Security.Cryptography.Primitives.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Security.Cryptography.X509Certificates.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Text.Encoding.CodePages.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Threading.Tasks.Extensions.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.ValueTuple.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Xml.ReaderWriter.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Xml.XmlDocument.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Xml.XPath.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/roslyn/System.Xml.XPath.XDocument.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Logging.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Tokens.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.IdentityModel.Tokens.Jwt.dll
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Newtonsoft.Json.pdb
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Logging.pdb
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Logging.xml
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Tokens.pdb
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.Tokens.xml
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.JsonWebTokens.pdb
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/Microsoft.IdentityModel.JsonWebTokens.xml
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.IdentityModel.Tokens.Jwt.pdb
+/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/bin/System.IdentityModel.Tokens.Jwt.xml

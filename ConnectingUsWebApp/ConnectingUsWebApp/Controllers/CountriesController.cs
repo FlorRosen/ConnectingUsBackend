@@ -5,6 +5,7 @@ using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class CountriesController: ApiController
     {
         static readonly CountriesRepository countriesRepo = new CountriesRepository();
@@ -20,6 +21,7 @@ namespace ConnectingUsWebApp.Controllers
 
         //Public Methods
         //Returns the countries where servieces are offer
+        [AllowAnonymous]
         [Route("api/countries/Map")]
         [HttpGet]
         public IEnumerable<Country> GetCountriesOfServices()

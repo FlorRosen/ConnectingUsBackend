@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using ConnectingUsWebApp.Controllers;
 
 namespace ConnectingUsWebApp
 {
@@ -12,6 +13,8 @@ namespace ConnectingUsWebApp
         {
             // Api Web Routes
             config.MapHttpAttributeRoutes();
+
+            config.MessageHandlers.Add(new TokenValidationHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

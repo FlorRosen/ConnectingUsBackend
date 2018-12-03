@@ -8,6 +8,7 @@ using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
 {
+    [Authorize]
     public class NotificationsController : ApiController
     {
         private static readonly NotificationsRepository notifRepo = new NotificationsRepository();
