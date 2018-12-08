@@ -23,12 +23,19 @@ namespace ConnectingUsWebApp.Controllers
         }
 
         [HttpGet]
-        [Route("echouser")]
-        public IHttpActionResult EchoUser()
+        [Route("userlogged")]
+        public IHttpActionResult userlogged()
         {
+            User user = null;
             var identity = Thread.CurrentPrincipal.Identity;
-            return Ok($" IPrincipal-user: {identity.Name} - IsAuthenticated: {identity.IsAuthenticated}");
+            if (identity.IsAuthenticated)
+            {
+                UsersRepository usersRepo = new UsersRepository();
+                user = usersRepo.GetUserByEmail(identity.Name);
+            }
+            return user == null ? NotFound() : (IHttpActionResult)Ok(user);
         }
+
 
         [HttpPost]
         [Route("authenticate")]

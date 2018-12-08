@@ -64,6 +64,29 @@ namespace ConnectingUsWebApp.Repositories
             return user;
         }
 
+        public User GetUserByEmail(string mail)
+        {
+            var user = new User();
+
+            command = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = "select * from users u inner join accounts ac on u.id_user = ac.id_user where mail = @mail"
+            };
+            command.Parameters.AddWithValue("@mail", mail);
+            connection.Open();
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    user = MapUserFromDB(reader);
+                }
+            }
+
+            connection.Close();
+            return user;
+        }
+
 
         //Validates that the nickname or the mail are in the DB
         public bool ValidateUserExistance(Account account)
