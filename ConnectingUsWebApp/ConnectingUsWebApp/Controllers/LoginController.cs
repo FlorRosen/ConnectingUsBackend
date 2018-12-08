@@ -24,7 +24,7 @@ namespace ConnectingUsWebApp.Controllers
 
         [HttpGet]
         [Route("userlogged")]
-        public IHttpActionResult userlogged()
+        public IHttpActionResult UserLogged()
         {
             User user = null;
             var identity = Thread.CurrentPrincipal.Identity;

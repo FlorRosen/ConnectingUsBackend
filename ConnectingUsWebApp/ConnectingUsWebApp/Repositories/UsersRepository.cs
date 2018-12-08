@@ -71,9 +71,9 @@ namespace ConnectingUsWebApp.Repositories
             command = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "select * from users u inner join accounts ac on u.id_user = ac.id_user where mail = @mail"
+                CommandText = "select * from users u inner join accounts ac on u.id_user = ac.id_user where UPPER(mail) = @mail"
             };
-            command.Parameters.AddWithValue("@mail", mail);
+            command.Parameters.AddWithValue("@mail", mail.ToUpper());
             connection.Open();
             using (SqlDataReader reader = command.ExecuteReader())
             {

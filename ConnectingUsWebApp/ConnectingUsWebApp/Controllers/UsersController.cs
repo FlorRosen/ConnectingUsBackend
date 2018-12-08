@@ -20,6 +20,7 @@ namespace ConnectingUsWebApp.Controllers
         }
 
         //POST api/users
+        [AllowAnonymous]
         [HttpPost]
         //public IHttpActionResult Post([FromBody] User user)
         public User Post([FromBody] User user)

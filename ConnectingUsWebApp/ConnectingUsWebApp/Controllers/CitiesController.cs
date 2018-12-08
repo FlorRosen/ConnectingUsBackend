@@ -5,7 +5,7 @@ using ConnectingUsWebApp.Repositories;
 
 namespace ConnectingUsWebApp.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class CitiesController : ApiController
     {
         static readonly CitiesRepository citiesRepo = new CitiesRepository();
