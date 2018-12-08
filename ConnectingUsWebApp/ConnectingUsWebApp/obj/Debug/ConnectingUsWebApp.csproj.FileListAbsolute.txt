@@ -251,3 +251,4 @@ C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\C
 C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.csproj.CopyComplete
 C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.dll
 C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.pdb
+C:\Users\Damian\Desktop\Facultad\ORT\3ro 2da\Connecting-Us\ConnectingUsBackend\ConnectingUsWebApp\ConnectingUsWebApp\obj\Debug\ConnectingUsWebApp.csprojAssemblyReference.cache
