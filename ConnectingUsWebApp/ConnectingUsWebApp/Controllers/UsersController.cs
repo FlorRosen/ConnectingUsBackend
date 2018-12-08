@@ -23,10 +23,10 @@ namespace ConnectingUsWebApp.Controllers
         [AllowAnonymous]
         [HttpPost]
         //public IHttpActionResult Post([FromBody] User user)
-        public User Post([FromBody] User user)
+        public IHttpActionResult Post([FromBody] User user)
         {
-            return usersRepo.AddUser(user);
-          
+            var newUser = usersRepo.AddUser(user);
+            return newUser != null ? (IHttpActionResult)Ok(newUser) : Content(HttpStatusCode.BadRequest, "Couldn't insert the user");
         }
 
         //POST api/users
