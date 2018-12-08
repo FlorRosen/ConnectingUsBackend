@@ -1,12 +1,9 @@
 ﻿<Properties StartupConfiguration="{398EA6CB-9A12-4752-8F68-C38BB79B74D7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/LoginController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConnectingUsWebApp/Controllers/CountriesController.cs">
     <Files>
-      <File FileName="ConnectingUsWebApp/Web.config" Line="46" Column="5" />
-      <File FileName="ConnectingUsWebApp/Repositories/ChatsRepository.cs" Line="11" Column="7" />
-      <File FileName="ConnectingUsWebApp/Repositories/MessagesRepository.cs" Line="10" Column="7" />
-      <File FileName="ConnectingUsWebApp/Repositories/QualificationsRepository.cs" Line="11" Column="7" />
-      <File FileName="ConnectingUsWebApp/packages.config" Line="17" Column="12" />
-      <File FileName="ConnectingUsWebApp/Controllers/LoginController.cs" Line="35" Column="46" />
+      <File FileName="ConnectingUsWebApp/Controllers/LoginController.cs" Line="32" Column="14" />
+      <File FileName="ConnectingUsWebApp/Repositories/UsersRepository.cs" Line="88" Column="10" />
+      <File FileName="ConnectingUsWebApp/Controllers/CountriesController.cs" Line="9" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -17,9 +14,9 @@
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Controllers/EmailsController.cs" relfile="ConnectingUsWebApp/Controllers/EmailsController.cs" line="15" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Services/EmailService.cs" relfile="ConnectingUsWebApp/Services/EmailService.cs" line="39" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Services/EmailService.cs" relfile="ConnectingUsWebApp/Services/EmailService.cs" line="52" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="172" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="186" column="1" />
-      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="198" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="218" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="232" column="1" />
+      <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/UsersRepository.cs" relfile="ConnectingUsWebApp/Repositories/UsersRepository.cs" line="244" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="100" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="84" column="1" />
       <Breakpoint file="/Users/florenciarosental/Documents/GitHub/ConnectingUsBackend/ConnectingUsWebApp/ConnectingUsWebApp/Repositories/ServicesRepository.cs" relfile="ConnectingUsWebApp/Repositories/ServicesRepository.cs" line="90" column="1" />
