@@ -27,7 +27,7 @@ namespace ConnectingUsWebApp.Repositories
                     "from notifications noti " +
                     "left join Chats chat on noti.id_chat = chat.id_chat " +
                     "left join services_by_users sbu on sbu.id_service = chat.id_service " +
-                    "left join accounts ac on ac.id_user = chat.id_user_requester " +
+                    "left join accounts ac on ac.id_user = noti.id_user_sender " +
                     "where id_user_notify = @id_user_notify and isRead = 0 ";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_user_notify", idUser);
