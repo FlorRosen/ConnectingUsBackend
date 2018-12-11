@@ -18,6 +18,7 @@ namespace ConnectingUsWebApp.Repositories
             connection = new SqlConnection(constr);
         }
 
+        //get notifications that were not read yet
         public List<Notification> GetNotificationsForUser (int idUser){
             List<Notification> notifications = new List<Notification>();
 

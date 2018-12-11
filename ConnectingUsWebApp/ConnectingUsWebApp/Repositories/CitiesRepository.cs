@@ -20,49 +20,59 @@ namespace ConnectingUsWebApp.Repositories
         public City GetCity(int idCity, int idCountry)
         {
             var city = new City();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from cities where id_city = @id_city and id_country = @id_country"
-            };
-            command.Parameters.AddWithValue("@id_city", idCity);
-            command.Parameters.AddWithValue("@id_country", idCountry);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    city = MapCityFromDB(reader);
+                    Connection = connection,
+                    CommandText = "select * from cities where id_city = @id_city and id_country = @id_country"
+                };
+                command.Parameters.AddWithValue("@id_city", idCity);
+                command.Parameters.AddWithValue("@id_country", idCountry);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        city = MapCityFromDB(reader);
 
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
-
+            finally
+            {
+                connection.Close();
+            }
             return city;
         }
 
         public List<City> GetCities(int idCountry)
         {
             List<City> cities = new List<City>();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from cities where id_country = @id_country order by name"
-            };
-            command.Parameters.AddWithValue("@id_country", idCountry);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    cities.Add(MapCityFromDB(reader));
+                    Connection = connection,
+                    CommandText = "select * from cities where id_country = @id_country order by name"
+                };
+                command.Parameters.AddWithValue("@id_country", idCountry);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cities.Add(MapCityFromDB(reader));
 
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
-
+            finally
+            {
+                connection.Close();
+            }
             return cities;
         }
 

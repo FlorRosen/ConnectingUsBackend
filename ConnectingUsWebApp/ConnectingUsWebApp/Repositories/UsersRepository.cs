@@ -41,49 +41,64 @@ namespace ConnectingUsWebApp.Repositories
             return users;
         }
 
+        //get user by id
         public User GetUser(int id)
         {
             var user = new User();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from users where id_user = @id_user"
-            };
-            command.Parameters.AddWithValue("@id_user", id);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    user = MapUserFromDB(reader);
+                    Connection = connection,
+                    CommandText = "select * from users where id_user = @id_user"
+                };
+                command.Parameters.AddWithValue("@id_user", id);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        user = MapUserFromDB(reader);
+                    }
                 }
-            }
 
-            connection.Close();
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
             return user;
         }
 
+        //get user by email
         public User GetUserByEmail(string mail)
         {
             var user = new User();
+            try
+            {
 
-            command = new SqlCommand
-            {
-                Connection = connection,
-                CommandText = "select * from users u inner join accounts ac on u.id_user = ac.id_user where UPPER(mail) = @mail"
-            };
-            command.Parameters.AddWithValue("@mail", mail.ToUpper());
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    user = MapUserFromDB(reader);
+                    Connection = connection,
+                    CommandText = "select * from users u inner join accounts ac on u.id_user = ac.id_user where UPPER(mail) = @mail"
+                };
+                command.Parameters.AddWithValue("@mail", mail.ToUpper());
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        user = MapUserFromDB(reader);
+                    }
                 }
-            }
 
-            connection.Close();
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
             return user;
         }
 
@@ -92,28 +107,35 @@ namespace ConnectingUsWebApp.Repositories
         public bool ValidateUserExistance(Account account)
         {
             var existence = false;
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from accounts where UPPER(mail) = @mail or UPPER(nickname) = @nickname"
-            };
-            command.Parameters.AddWithValue("@mail", account.Mail.ToUpper());
-            command.Parameters.AddWithValue("@nickname", account.Nickname.ToUpper());
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    existence = true;
-                }
-            }
+                    Connection = connection,
+                    CommandText = "select * from accounts where UPPER(mail) = @mail or UPPER(nickname) = @nickname"
+                };
+                command.Parameters.AddWithValue("@mail", account.Mail.ToUpper());
+                command.Parameters.AddWithValue("@nickname", account.Nickname.ToUpper());
 
-            connection.Close();
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        existence = true;
+                    }
+                }
+
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
             return existence;
         }
 
+        //create new user
         public User AddUser(User user)
         {
             var result = true;
@@ -237,38 +259,44 @@ namespace ConnectingUsWebApp.Repositories
         public User GetUserReputation(int id)
         {
             var user = new User();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from users where id_user = @id_user"
-            };
-            command.Parameters.AddWithValue("@id_user", id);
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    
-                    user.Id = MapUserFromDB(reader).Id;
-                    user.FirstName = MapUserFromDB(reader).FirstName;
-                    user.LastName = MapUserFromDB(reader).LastName;
-                    user.Gender = MapUserFromDB(reader).Gender;
-                    user.Reputation = MapUserFromDB(reader).Reputation;
-                    user.CityOfResidence = MapUserFromDB(reader).CityOfResidence;
-                    user.CityOfResidence.Id = null;
- 
-                    user.CountryOfResidence = MapUserFromDB(reader).CountryOfResidence;
-                    user.CountryOfResidence.Id = null;
-                    user.Account = MapUserFromDB(reader).Account;
-                    user.Account.Mail = null;
-                    user.Account.Password = null;
-                    user.Account.Id = null;
+                    Connection = connection,
+                    CommandText = "select * from users where id_user = @id_user"
+                };
+                command.Parameters.AddWithValue("@id_user", id);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
 
+                        user.Id = MapUserFromDB(reader).Id;
+                        user.FirstName = MapUserFromDB(reader).FirstName;
+                        user.LastName = MapUserFromDB(reader).LastName;
+                        user.Gender = MapUserFromDB(reader).Gender;
+                        user.Reputation = MapUserFromDB(reader).Reputation;
+                        user.CityOfResidence = MapUserFromDB(reader).CityOfResidence;
+                        user.CityOfResidence.Id = null;
+
+                        user.CountryOfResidence = MapUserFromDB(reader).CountryOfResidence;
+                        user.CountryOfResidence.Id = null;
+                        user.Account = MapUserFromDB(reader).Account;
+                        user.Account.Mail = null;
+                        user.Account.Password = null;
+                        user.Account.Id = null;
+
+                    }
                 }
-            }
 
-            connection.Close();
+                connection.Close();
+            }
+            finally
+            {
+                connection.Close();
+            }
             return user;
         }
 

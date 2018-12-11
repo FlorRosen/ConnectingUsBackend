@@ -23,6 +23,7 @@ namespace ConnectingUsWebApp.Repositories
             connection = new SqlConnection(constr);
         }
 
+        //return all chats as a offertor or requester
         public List<Chat> GetChats(int? idUserOffertor,int? idUserRequester)
         {
             List<Chat> chats = new List<Chat>();
@@ -61,6 +62,7 @@ namespace ConnectingUsWebApp.Repositories
             return chats;
         }
 
+
         public Chat GetChat(int idChat)
         {
             Chat chat = new Chat();
@@ -91,7 +93,7 @@ namespace ConnectingUsWebApp.Repositories
         }
 
 
-
+        //get chats of user
         public Chat GetChatByUser(GetChatViewModel getChatViewModel)
         {
             Chat chat = new Chat();
@@ -203,7 +205,7 @@ namespace ConnectingUsWebApp.Repositories
 
 
         //Close the chat and insert the qualification
-        public bool UpdateChat(Chat chat) //preguntar si puede pasarme solo el id del chat y no todo el objeto
+        public bool UpdateChat(Chat chat)
         {
             
             var result = false;

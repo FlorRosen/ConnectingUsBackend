@@ -27,22 +27,28 @@ namespace ConnectingUsWebApp.Repositories
         {
             Image image = new Image();
 
-
-            String query = "select * " +
-                           "from services_images where id_service = @id_service";
-            command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@id_service", idService);
-
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                String query = "select * " +
+                               "from services_images where id_service = @id_service";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_service", idService);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    image = MapImageFromDB(reader);
-                    
+                    while (reader.Read())
+                    {
+                        image = MapImageFromDB(reader);
+
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
             return image;
         }
 

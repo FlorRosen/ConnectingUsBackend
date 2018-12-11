@@ -19,47 +19,60 @@ namespace ConnectingUsWebApp.Repositories
 
         public Country GetCountry(int id){
             var country = new Country();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from countries where id_country = @id_country"
-            };
-            command.Parameters.AddWithValue("@id_country", id);
-            connection.Open();
-            using(SqlDataReader reader = command.ExecuteReader()){
-                while(reader.Read()){
-                    country.Id = MapCountryFromDB(reader).Id;
-                    country.Name = MapCountryFromDB(reader).Name;
-                    country.CountryCode = MapCountryFromDB(reader).CountryCode;
-                    country.Nationality = MapCountryFromDB(reader).Nationality;
+                command = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText = "select * from countries where id_country = @id_country"
+                };
+                command.Parameters.AddWithValue("@id_country", id);
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        country.Id = MapCountryFromDB(reader).Id;
+                        country.Name = MapCountryFromDB(reader).Name;
+                        country.CountryCode = MapCountryFromDB(reader).CountryCode;
+                        country.Nationality = MapCountryFromDB(reader).Nationality;
 
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
 
             return country;
         }
 
         public List<Country> GetCountries(){
             List<Country> countries = new List<Country>();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select * from countries order by name"
-            };
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    countries.Add(MapCountryFromDB(reader));
+                    Connection = connection,
+                    CommandText = "select * from countries order by name"
+                };
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        countries.Add(MapCountryFromDB(reader));
 
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
-
+            finally
+            {
+                connection.Close();
+            }
             return countries;
         }
 
@@ -67,23 +80,29 @@ namespace ConnectingUsWebApp.Repositories
         public List<Country> GetCountriesOfServices()
         {
             List<Country> countries = new List<Country>();
-
-            command = new SqlCommand
+            try
             {
-                Connection = connection,
-                CommandText = "select distinct co.* from countries co " +
-                "inner join services_by_users sbu on sbu.id_country = co.id_country "
-            };
-            connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                command = new SqlCommand
                 {
-                    countries.Add(MapCountryFromDB(reader));
+                    Connection = connection,
+                    CommandText = "select distinct co.* from countries co " +
+                    "inner join services_by_users sbu on sbu.id_country = co.id_country "
+                };
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        countries.Add(MapCountryFromDB(reader));
 
+                    }
                 }
+                connection.Close();
             }
-            connection.Close();
+            finally
+            {
+                connection.Close();
+            }
 
             return countries;
         }
